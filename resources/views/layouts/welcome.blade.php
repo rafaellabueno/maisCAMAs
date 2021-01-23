@@ -9,6 +9,8 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
 
         <!-- Styles -->
         <link href="{{ asset('css/material-dashboard.css') }}" rel="stylesheet" />
@@ -21,7 +23,7 @@
         @if (Route::has('login'))
             <div class="container">
                 <a href="{{ route('inicio') }}" style="right: 30px;">
-                    <img href="{{ url('/') }}" src="{{ asset('img/logo.png') }}" width="60" alt="+CAMAs">
+                    <img href="{{ url('/') }}" src="{{ asset('img/logo_branco.png') }}" width="60" alt="+CAMAs">
                 </a>
 
                 @auth

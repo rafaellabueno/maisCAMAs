@@ -19,6 +19,13 @@ Route::get('/', function () {
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+//Usuários
+Route::get('/usuarios/dashboard', 'UsuarioController@index')->name('usuarios.lista');
+Route::get('/usuarios/cadastrar', 'UsuarioController@cadastro')->name('usuarios.cadastro');
+Route::post('/usuarios/cadastra', 'UsuarioController@cadastrar')->name('usuarios.cadastrar');
+Route::get('/usuarios/editar/{id}', 'UsuarioController@edita')->name('usuarios.edita');
+Route::post('/usuarios/edita', 'UsuarioController@editar')->name('usuarios.editar');
+
 Auth::routes();
 
 Route::post('/recuperar/senha/', 'Auth\ForgotPasswordController@emailSenha')->name('recuperar.senha');

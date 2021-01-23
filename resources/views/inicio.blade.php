@@ -9,6 +9,8 @@
                     <p class="card-text">Bem-vindo(a) a Ferramenta Digital para Gerenciamento da Casa de Apoio Madre Ana </p>
                     @if(Auth::guest())
                     <a class="btn btn-info btn-round" href="{{ route('login') }}">Login</a>
+                    @else
+                        <a class="btn btn-info btn-round" href="{{ route('home') }}">Home</a>
                     @endif
                 </div>
             </div>

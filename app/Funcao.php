@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\User;
 
 class Funcao extends Model
 {
@@ -28,5 +29,10 @@ class Funcao extends Model
     protected $fillable = [
         'nome', 'descricao',
     ];
+
+    public function users(){
+        return $this->hasMany('App\User', 'funcao_id');
+    }
+
 
 }

@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Funcao;
 
 class User extends Authenticatable
 {
@@ -16,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'funcao_id'
     ];
 
     /**
@@ -40,4 +41,18 @@ class User extends Authenticatable
     static function findByEmail($email) {
         return User::where('email', $email)->first();
     }
+
+    public function temFuncao ($funcao){
+        if($funcao == \Auth::user()->funcoes->nome){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public function funcoes(){
+        return $this->belongsTo('App\Funcao','funcao_id');
+    }
+
 }
