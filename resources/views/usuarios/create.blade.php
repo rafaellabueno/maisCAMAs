@@ -63,6 +63,19 @@
                                         </span>
                                         @endif
                                     </div>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="card-body ">
+                                    <h6 class="card-category text-info" >
+                                        <i class="material-icons">admin_panel_settings</i> <div id="funcao-nome"> </div>
+                                    </h6>
+                                    <h4 class="card-title">
+                                        <a id="funcao-descricao"></a>
+                                    </h4>
+
                                 </div>
                             </div>
 
@@ -94,6 +107,16 @@
                     //$('.selectize-control').addClass('form-group');
                     $('.selectize-input').addClass('form-control');
                 },
+            });
+        });
+
+        $('#funcao-select').change(function(){
+            var func = document.getElementById('funcao-select').value;
+            console.log(func);
+            var urlConsulta = '../funcoes/dados-funcao/'+func;
+            $.get(urlConsulta, function (res){
+                $("#funcao-nome").html(res.nome);
+                $("#funcao-descricao").html(res.descricao);
             });
         });
 

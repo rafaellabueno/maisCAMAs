@@ -30,7 +30,9 @@ class UsuarioController extends Controller
     public function index()
     {
         $users = User::all(['id', 'name', 'email', 'funcao_id'])->sortBy("name");
-        return view('usuarios/list')->withUsers($users);
+        $cont = 0;
+
+        return view('usuarios/list')->withUsers($users)->withCont($cont);
     }
 
     public function cadastro()
@@ -81,4 +83,9 @@ class UsuarioController extends Controller
 
         return redirect()->route('usuarios.lista');
     }
+
+    public function dadosFuncao($id){ //Ajax
+        return Funcao::find($id);
+    }
+
 }

@@ -28,7 +28,6 @@
                             </tr>
                             </thead>
                             <tbody>
-                            {{$cont = 0}}
                             @foreach($users as $i => $user)
                             <tr>
                                 <td class="text-center">{{ $cont+=1 }}</td>

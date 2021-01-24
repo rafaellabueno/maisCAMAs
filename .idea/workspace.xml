@@ -2,31 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f31e2ae8-e216-417e-a7fe-623f86965813" name="Default" comment="feat: usuarios">
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/UsuarioController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Middleware/IsAssistenteCA.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Middleware/IsAssistenteSC.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Middleware/IsFuncionario.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Middleware/IsMaster.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Jobs/MailUsuarioJob.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Mail/MailUsuario.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/seeds/FuncaoSeeder.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/logo_branco.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/js/selectize.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/mail/mailUsuario.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/usuarios/create.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/usuarios/edit.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/usuarios/list.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/maiscamas.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/maiscamas.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Funcao.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Funcao.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/ForgotPasswordController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/ForgotPasswordController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Kernel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/selectize.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/selectize.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/inicio.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/inicio.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/welcome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/welcome.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UsuarioController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UsuarioController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/usuarios/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/usuarios/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/usuarios/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/usuarios/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/usuarios/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/usuarios/list.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -437,8 +417,17 @@
       <workItem from="1611256212310" duration="6287000" />
       <workItem from="1611266324857" duration="657000" />
       <workItem from="1611358494494" duration="791000" />
-      <workItem from="1611420064899" duration="11628000" />
+      <workItem from="1611420064899" duration="11709000" />
+      <workItem from="1611488664017" duration="3814000" />
     </task>
+    <task id="LOCAL-00001" summary="feat: usuarios">
+      <created>1611431964963</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1611431964963</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">

@@ -25,6 +25,9 @@ Route::get('/usuarios/cadastrar', 'UsuarioController@cadastro')->name('usuarios.
 Route::post('/usuarios/cadastra', 'UsuarioController@cadastrar')->name('usuarios.cadastrar');
 Route::get('/usuarios/editar/{id}', 'UsuarioController@edita')->name('usuarios.edita');
 Route::post('/usuarios/edita', 'UsuarioController@editar')->name('usuarios.editar');
+Route::get('funcoes/dados-funcao/{id}', 'UsuarioController@dadosFuncao'); //Ajax
+
+
 
 Auth::routes();
 
