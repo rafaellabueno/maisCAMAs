@@ -57,9 +57,9 @@
                         <div class="tab-pane" id="quartos">
                             <p><h6>Gerenciar informações dos quartos</h6><br><br>Podemos adicionar novos quartos, assim como editar informações sobre os mesmos</p>
                             <div class="col-md-12 ">
-                                <button type="submit" class="btn btn-rose">
+                                <a type="button" href="{{ route('quartos.lista') }}" class="btn btn-rose">
                                     Lista de quartos
-                                </button>
+                                </a>
                             </div>
                         </div>
                         <div class="tab-pane active" id="reservas">
@@ -67,9 +67,14 @@
                             As reservas são divididas em três status: aceitas, em espera e recusadas. Nesta aba, podemos
                             visualizar todas as informações referentes as mesmas</p>
                             <div class="col-md-12 ">
-                                <button type="submit" class="btn btn-rose">
-                                    Lista de reservas
-                                </button>
+                                @if (! Auth::user()->temFuncao('Assistente Social Santa Casa'))
+                                    <a type="button" href=""  class="btn btn-rose">
+                                        Lista de reservas
+                                    </a>
+                                @endif
+                                <a type="button" href="{{ route('reservas.solicitacoes') }}" class="btn btn-rose">
+                                    Minhas solicitações
+                                </a>
                             </div>
                         </div>
                         <div class="tab-pane" id="usuarios">

@@ -112,7 +112,6 @@
 
         $('#funcao-select').change(function(){
             var func = document.getElementById('funcao-select').value;
-            console.log(func);
             var urlConsulta = '../funcoes/dados-funcao/'+func;
             $.get(urlConsulta, function (res){
                 $("#funcao-nome").html(res.nome);

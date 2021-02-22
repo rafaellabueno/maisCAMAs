@@ -48,18 +48,23 @@ class UsuarioController extends Controller
         $dt = new DateTime();
         $password = \Str::lower(\Str::words($data['nome'], 1).$dt->format('Y'));
 
-        User::create([
-            'name' => $data['nome'],
-            'email' => $data['email'],
-            'password' => Hash::make($password),
-            'funcao_id' => $data['funcao'],
-        ]);
+        if(User::findByEmail($data['email']) == null){
+            User::create([
+                'name' => $data['nome'],
+                'email' => $data['email'],
+                'password' => Hash::make($password),
+                'funcao_id' => $data['funcao'],
+            ]);
 
-        $emailJob = (new MailUsuarioJob($data['nome'], $data['email'], $password))
-            ->delay(\Carbon\Carbon::now()->addSeconds(3));
-        dispatch($emailJob);
+            $emailJob = (new MailUsuarioJob($data['nome'], $data['email'], $password))
+                ->delay(\Carbon\Carbon::now()->addSeconds(3));
+            dispatch($emailJob);
 
-        return redirect()->route('usuarios.lista');
+            return redirect()->route('usuarios.lista');
+        }
+        else{
+            return redirect()->back()->withErrors(['email' => 'E-mail já cadastrado']);
+        }
     }
 
     public function edita($id)
@@ -75,13 +80,18 @@ class UsuarioController extends Controller
         $data = $req->all();
         $id = $data['id_user'];
 
-        User::where('id', $id)
-            ->update(['name' => $data['nome'],
-                'email' => $data['email'],
-                'funcao_id' => $data['funcao'],
-            ]);
+        if(User::findByEmail($data['email']) == null) {
+            User::where('id', $id)
+                ->update(['name' => $data['nome'],
+                    'email' => $data['email'],
+                    'funcao_id' => $data['funcao'],
+                ]);
 
-        return redirect()->route('usuarios.lista');
+            return redirect()->route('usuarios.lista');
+        }
+        else{
+            return redirect()->back()->withErrors(['email' => 'E-mail já cadastrado']);
+        }
     }
 
     public function dadosFuncao($id){ //Ajax

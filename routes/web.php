@@ -27,7 +27,23 @@ Route::get('/usuarios/editar/{id}', 'UsuarioController@edita')->name('usuarios.e
 Route::post('/usuarios/edita', 'UsuarioController@editar')->name('usuarios.editar');
 Route::get('funcoes/dados-funcao/{id}', 'UsuarioController@dadosFuncao'); //Ajax
 
+//Quartos
+Route::get('/quartos/dashboard', 'QuartoController@index')->name('quartos.lista');
+Route::get('/quartos/cadastrar', 'QuartoController@cadastro')->name('quartos.cadastro');
+Route::post('/quartos/cadastra', 'QuartoController@cadastrar')->name('quartos.cadastrar');
+Route::get('/quartos/editar/{id}', 'QuartoController@edita')->name('quartos.edita');
+Route::post('/quartos/edita', 'QuartoController@editar')->name('quartos.editar');
 
+//Reservas
+Route::get('/reservas/cadastrar', 'ReservaController@cadastro')->name('reservas.cadastro');
+Route::post('/reservas/cadastra', 'ReservaController@cadastrar')->name('reservas.cadastrar');
+Route::get('/reservas/cadastrar', 'ReservaController@cadastroFunc')->name('reservasFunc.cadastro');
+Route::post('/reservas/cadastra', 'ReservaController@cadastrarFunc')->name('reservasFunc.cadastrar');
+Route::get('/reservas/solicitacoes', 'ReservaController@solicitacoes')->name('reservas.solicitacoes');
+Route::get('/reservas/solicitacoes/{id}', 'ReservaController@show')->name('solicitacoes.show');
+Route::get('/reservas/solicitacoes/editar/{id}', 'ReservaController@edita')->name('solicitacoes.edita');
+Route::post('/reservas/solicitacoes/edita', 'ReservaController@editar')->name('solicitacoes.editar');
+Route::get('reservas/dados-pessoa/{rg}', 'ReservaController@dadosPessoa'); //Ajax
 
 Auth::routes();
 
