@@ -35,8 +35,8 @@ Route::get('/quartos/editar/{id}', 'QuartoController@edita')->name('quartos.edit
 Route::post('/quartos/edita', 'QuartoController@editar')->name('quartos.editar');
 
 //Reservas
-Route::get('/reservas/cadastrar', 'ReservaController@cadastro')->name('reservas.cadastro');
-Route::post('/reservas/cadastra', 'ReservaController@cadastrar')->name('reservas.cadastrar');
+Route::get('/reservas/cadastrarA', 'ReservaController@cadastro')->name('reservas.cadastro');
+Route::post('/reservas/cadastraA', 'ReservaController@cadastrar')->name('reservas.cadastrar');
 Route::get('/reservas/cadastrar', 'ReservaController@cadastroFunc')->name('reservasFunc.cadastro');
 Route::post('/reservas/cadastra', 'ReservaController@cadastrarFunc')->name('reservasFunc.cadastrar');
 Route::get('/reservas/solicitacoes', 'ReservaController@solicitacoes')->name('reservas.solicitacoes');
