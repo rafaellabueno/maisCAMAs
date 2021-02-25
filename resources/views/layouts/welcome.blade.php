@@ -30,7 +30,6 @@
                     <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarNavDropdown">
                         <span class="material-icons" style="color: white;">list</span>
                     </button>
-
                     <div class="collapse navbar-collapse" id="navbarNavDropdown">
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item dropdown">

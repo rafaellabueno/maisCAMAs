@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\Notificacao;
 use App\Reserva;
 use App\User;
 use App\Pessoa;
@@ -97,6 +98,8 @@ class ReservaController extends Controller
                 'user_id' => Auth::user()->id,
             ]);
 
+        Auth::user()->notify(new Notificacao());
+
         return redirect()->route('reservas.solicitacoes');
     }
 
@@ -185,6 +188,19 @@ class ReservaController extends Controller
         return view('reservas/show')->withReserva($reserva);
     }
 
+    public function showPendente($id){
+        $reserva = DB::table('reservas')->join('reserva_pessoa_quarto', 'reservas.id', '=', 'reserva_pessoa_quarto.reserva_id')
+            ->join('pessoas', 'pessoas.id', '=', 'reserva_pessoa_quarto.pessoa_id')
+            ->select('reservas.id','pessoas.nome', 'reservas.created_at', 'reservas.status', 'pessoas.cidade', 'pessoas.telefone', 'pessoas.email', 'pessoas.rg', 'pessoas.nome_paciente',
+                'pessoas.data_nascimento', 'reservas.data_entrada', 'reservas.data_saida', 'reservas.especialidade',
+                'reservas.observacao', 'reservas.urgencia', 'reservas.acessibilidade', 'reservas.crianca')
+            ->where('reserva_pessoa_quarto.reserva_id', $id)->distinct()
+            ->get();
+
+
+        return view('reservas/showPendente')->withReserva($reserva);
+    }
+
     public function edita($id){
         $reserva = DB::table('reservas')->join('reserva_pessoa_quarto', 'reservas.id', '=', 'reserva_pessoa_quarto.reserva_id')
             ->join('pessoas', 'pessoas.id', '=', 'reserva_pessoa_quarto.pessoa_id')
@@ -264,4 +280,43 @@ class ReservaController extends Controller
     { //Ajax
         return Pessoa::where([['rg', '=', $rg]])->first();
     }
+
+    public function lista()
+    {
+        $reservasP = DB::table('reservas')->join('reserva_pessoa_quarto', 'reservas.id', '=', 'reserva_pessoa_quarto.reserva_id')
+            ->join('pessoas', 'pessoas.id', '=', 'reserva_pessoa_quarto.pessoa_id')
+            ->join('users', 'users.id', '=', 'reserva_pessoa_quarto.user_id')
+            ->select('reservas.id', 'reserva_pessoa_quarto.pessoa_id','pessoas.nome', 'reservas.created_at', 'reservas.status', 'pessoas.cidade', 'pessoas.telefone', 'pessoas.email', 'pessoas.rg', 'pessoas.nome_paciente',
+                'pessoas.data_nascimento', 'reservas.data_entrada', 'reservas.data_saida', 'reservas.especialidade',
+                'reservas.observacao', 'reservas.urgencia', 'reservas.acessibilidade', 'reservas.crianca', 'users.name')
+            ->where('reservas.status', "Solicitada")->distinct()
+            ->get();
+
+        $reservasR = DB::table('reservas')->join('reserva_pessoa_quarto', 'reservas.id', '=', 'reserva_pessoa_quarto.reserva_id')
+            ->join('pessoas', 'pessoas.id', '=', 'reserva_pessoa_quarto.pessoa_id')
+            ->join('users', 'users.id', '=', 'reserva_pessoa_quarto.user_id')
+            ->select('reservas.id', 'reserva_pessoa_quarto.pessoa_id','pessoas.nome', 'reservas.created_at', 'reservas.status', 'pessoas.cidade', 'pessoas.telefone', 'pessoas.email', 'pessoas.rg', 'pessoas.nome_paciente',
+                'pessoas.data_nascimento', 'reservas.data_entrada', 'reservas.data_saida', 'reservas.especialidade',
+                'reservas.observacao', 'reservas.urgencia', 'reservas.acessibilidade', 'reservas.crianca', 'users.name')
+            ->where('reservas.status', "Recusada")->distinct()
+            ->get();
+
+        return view('reservas.list')->withReservasP($reservasP)->withReservasR($reservasR);
+    }
+
+    public function recusar($id, $s)
+    {
+
+        if (password_verify($s, Auth::user()->password)) {
+            Reserva::where('id', $id)
+                ->update([
+                    'status' => "Recusada",
+                ]);
+
+            return 'true';
+        }
+
+        return 'false';
+    }
+
 }

@@ -45,6 +45,10 @@ Route::get('/reservas/solicitacoes/editar/{id}', 'ReservaController@edita')->nam
 Route::post('/reservas/solicitacoes/edita', 'ReservaController@editar')->name('solicitacoes.editar');
 Route::get('reservas/dados-pessoa/{rg}', 'ReservaController@dadosPessoa'); //Ajax
 
+Route::get('/reservas/lista', 'ReservaController@lista')->name('reservas.lista');
+Route::get('/reservas/pendentes/{id}', 'ReservaController@showPendente')->name('solicitacoes.showPend');
+Route::get('/reservas/recusar/{id}/{s}', 'ReservaController@recusar'); //Ajax
+
 Auth::routes();
 
 Route::post('/recuperar/senha/', 'Auth\ForgotPasswordController@emailSenha')->name('recuperar.senha');

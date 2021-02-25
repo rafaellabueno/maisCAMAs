@@ -68,7 +68,7 @@
                             visualizar todas as informações referentes as mesmas</p>
                             <div class="col-md-12 ">
                                 @if (! Auth::user()->temFuncao('Assistente Social Santa Casa'))
-                                    <a type="button" href=""  class="btn btn-rose">
+                                    <a type="button" href="{{ route('reservas.lista') }}"  class="btn btn-rose">
                                         Lista de reservas
                                     </a>
                                 @endif
