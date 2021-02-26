@@ -9,6 +9,7 @@ use App\Pessoa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Jobs\MailRecusaJob;
 
 class ReservaController extends Controller
 {
@@ -98,7 +99,6 @@ class ReservaController extends Controller
                 'user_id' => Auth::user()->id,
             ]);
 
-        Auth::user()->notify(new Notificacao());
 
         return redirect()->route('reservas.solicitacoes');
     }
@@ -312,6 +312,16 @@ class ReservaController extends Controller
                 ->update([
                     'status' => "Recusada",
                 ]);
+
+            $reserva = DB::table('reservas')->join('reserva_pessoa_quarto', 'reservas.id', '=', 'reserva_pessoa_quarto.reserva_id')
+                ->join('users', 'users.id', '=', 'reserva_pessoa_quarto.user_id')
+                ->select('reservas.id', 'users.name', 'users.email')
+                ->where('reservas.id', $id)->distinct()
+                ->get()->first();
+
+            $emailJob = (new MailRecusaJob($reserva->name, $reserva->email))
+                ->delay(\Carbon\Carbon::now()->addSeconds(3));
+            dispatch($emailJob);
 
             return 'true';
         }

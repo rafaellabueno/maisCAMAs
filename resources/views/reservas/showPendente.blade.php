@@ -16,7 +16,7 @@
                                 <a href="" type="button" rel="tooltip" class="btn btn-success btn-round">
                                     <i class="material-icons">check</i>
                                 </a>
-                                    <a href="javascript:void(0); " id-reserva="{{ $reserva->first()->id }}" type="button" rel="tooltip" class="btn btn-success btn-round exclusao">
+                                    <a href="javascript:void(0); " id-reserva="{{ $reserva->first()->id }}" type="button" rel="tooltip" class="btn btn-danger btn-round exclusao">
                                         <i class="material-icons">close</i>
                                     </a>
                                 </div>

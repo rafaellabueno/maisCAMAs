@@ -217,7 +217,7 @@
                                             <div class="col-md-12">
                                                 <div class="form-check form-check-inline">
                                                     <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" @if($reserva->first()->acessibilidade == TRUE) checked @endif ="acessibilidade"> Acessibilidade
+                                                        <input class="form-check-input" type="checkbox" @if($reserva->first()->acessibilidade == TRUE) checked @endif name="acessibilidade"> Acessibilidade
                                                         <span class="form-check-sign">
                                                         <span class="check"></span>
                                                     </span>

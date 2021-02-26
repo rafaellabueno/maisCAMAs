@@ -33,6 +33,10 @@ Route::get('/quartos/cadastrar', 'QuartoController@cadastro')->name('quartos.cad
 Route::post('/quartos/cadastra', 'QuartoController@cadastrar')->name('quartos.cadastrar');
 Route::get('/quartos/editar/{id}', 'QuartoController@edita')->name('quartos.edita');
 Route::post('/quartos/edita', 'QuartoController@editar')->name('quartos.editar');
+Route::get('/quartos/{id}', 'QuartoController@show')->name('quartos.show');
+
+Route::get('/quartos/filtrar/{id}', 'QuartoController@filtrar')->name('quartos.filtrar');
+Route::get('cama/quant-cama/{cama}/{id}', 'QuartoController@dadosCama'); //Ajax
 
 //Reservas
 Route::get('/reservas/cadastrarA', 'ReservaController@cadastro')->name('reservas.cadastro');

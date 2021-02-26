@@ -9,7 +9,7 @@
                         <h4 class="card-title">Adicionar Quarto</h4>
                     </div>
                     <div class="card-body align-content-center">
-                        <form class="form" method="post" action="{{route('usuarios.cadastrar')}}">
+                        <form class="form" method="post" action="{{route('quartos.cadastrar')}}">
                             <input type="hidden" name="_token" value="{{{ csrf_token() }}}"/>
 
                             <div class="row ">
@@ -47,7 +47,7 @@
                                     </div>
                                 </div>
 
-                                
+
                             </div>
                             <div class="row justify-content-center">
                                 <div class="col-md-7">
@@ -59,8 +59,9 @@
                                                 <select id="status-select" name="status" value="{{ old('status') }}" required>
                                                     <option></option>
 
-                                                    <option value="livre">Livre</option>
-                                                    <option value="ocupado">Ocupado</option>                                                                                    
+                                                    <option value="Livre">Livre</option>
+                                                    <option value="Ocupado">Ocupado</option>
+                                                    <option value="Inativo">Inativo</option>
                                                 </select>
                                                 @if ($errors->has('status'))
                                                 <span class="help-block">
@@ -72,7 +73,6 @@
                                     </div>
                                 </div>
                             </div>
-
 
                             <div class="col-md-12">
                                 <div class="card">
@@ -93,7 +93,7 @@
                                                             <span class="form-check-sign">
                                                                 <span class="check"></span>
                                                             </span>
-                                                            <input type="number" class="form-control" placeholder="  Quantidade..." name="quantberco" value="{{ old('quantberco') }}" required>
+                                                            <input type="number" class="form-control" placeholder="  Quantidade..." name="quantberco" value="{{ old('quantberco') }}" >
                                                         </label>
 
                                                     </div>
@@ -112,7 +112,7 @@
                                                         <span class="form-check-sign">
                                                             <span class="check"></span>
                                                         </span>
-                                                        <input type="number" class="form-control" placeholder="  Quantidade..." name="quantbicama" value="{{ old('quantbicama') }}" required>
+                                                        <input type="number" class="form-control" placeholder="  Quantidade..." name="quantbicama" value="{{ old('quantbicama') }}" >
                                                     </label>
 
                                                 </div>
@@ -127,11 +127,11 @@
                                             <div class="card-body">
                                              <div class="form-check form-check-inline">
                                                 <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" name="cama">CAMA DE CASAL
+                                                    <input class="form-check-input" type="checkbox" name="camacasal">CAMA DE CASAL
                                                     <span class="form-check-sign">
                                                         <span class="check"></span>
                                                     </span>
-                                                    <input type="number" class="form-control" placeholder="  Quantidade..." name="quantcamacasal" value="{{ old('quantcamacasal') }}" required>
+                                                    <input type="number" class="form-control" placeholder="  Quantidade..." name="quantcamacasal" value="{{ old('quantcamacasal') }}" >
                                                 </label>
 
                                             </div>
@@ -150,7 +150,7 @@
                                                 <span class="form-check-sign">
                                                     <span class="check"></span>
                                                 </span>
-                                                <input type="number" class="form-control" placeholder="  Quantidade..." name="quantcamasolteiro" value="{{ old('quantcamasolteiro') }}" required>
+                                                <input type="number" class="form-control" placeholder="  Quantidade..." name="quantcamasolteiro" value="{{ old('quantcamasolteiro') }}" >
                                             </label>
 
                                         </div>
@@ -161,11 +161,12 @@
                         <hr>
                         <div class="row justify-content-center">
                             <div class="col-md-5">
-                                <div class="card">                                
+                                <div class="card">
+                                    <i class="material-icons">bathtub</i>
                                   <div class="card-body">
                                      <div class="form-check form-check-inline">
                                         <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" name="banheiro">O QUARTO POSSUI BANHEIRO
+                                            <input class="form-check-input" type="checkbox" name="banheiro">O quarto possui banheiro
                                             <span class="form-check-sign">
                                                 <span class="check"></span>
                                             </span>
@@ -174,8 +175,23 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="card">
+                                    <i class="material-icons">accessible</i>
+                                    <div class="card-body">
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox" name="acessibilidade">Acessibilidade
+                                                <span class="form-check-sign">
+                                                <span class="check"></span>
+                                            </span>
+                                            </label>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
                 </div>
             </div>
@@ -185,14 +201,15 @@
                     <label for="exampleFormControlTextarea1">Observações do quarto</label>
                     <textarea class="form-control" name="observacao" rows="2"></textarea>
                 </div>
-            </div> 
+            </div>
 
             <div class="col-md-12 ">
                 <button type="submit" class="btn btn-info">
                     Cadastrar
                 </button>
             </div>
-
+                                </div>
+                            </div>
         </form>
     </div>
 </div>
@@ -205,7 +222,7 @@
 <script type="text/javascript" src="{{asset('js/selectize.min.js')}}"></script>
 <script type="text/javascript">
     $(document).ready(function(){
-        
+
         var oldStatus = $('#status-select').attr("value");
         $('#status-select').selectize({
             placeholder: 'Status do quarto...',

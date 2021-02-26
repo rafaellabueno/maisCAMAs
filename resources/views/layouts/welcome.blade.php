@@ -80,7 +80,6 @@
         <script src="{{ asset('js/arrive.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('js/moment.min.js') }}"></script>
         <!--	Plugin for the Datepicker, full documentation here: https://github.com/Eonasdan/bootstrap-datetimepicker -->
-        <script src="{{ asset('js/bootstrap-datetimepicker.js') }}" type="text/javascript"></script>
         <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
         <script src="{{ asset('js/nouislider.min.js') }}" type="text/javascript"></script>
         <!-- Place this tag in your head or just before your close body tag. -->

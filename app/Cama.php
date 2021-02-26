@@ -4,14 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Quarto extends Model
+class Cama extends Model
 {
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'quartos';
+    protected $table = 'camas';
 
     /**
      * The table associated with the model.
@@ -26,6 +26,6 @@ class Quarto extends Model
      * @var array
      */
     protected $fillable = [
-        'andar',  'numero', 'status', 'observacao', 'banheiro', 'acessibilidade',
+        'cama', 'quantidade', 'ocupadas', 'quarto_id',
     ];
 }
