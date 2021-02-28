@@ -18,11 +18,9 @@ class CreatePessoasTable extends Migration
             $table->string('nome');
             $table->string('cidade');
             $table->date('data_nascimento');
-            $table->boolean('paciente');
             $table->bigInteger('rg')->unique();
             $table->string('email');
             $table->string('telefone');
-            $table->string('nome_paciente');
             $table->timestamps();
         });
     }

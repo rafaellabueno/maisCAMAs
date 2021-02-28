@@ -40,6 +40,10 @@
                                         <i class="material-icons text-center">content_paste</i> <br> </br> Relatórios</a>
                                 </li>
                                 @endif
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#tutoriais" data-toggle="tab">
+                                        <i class="material-icons text-center">screen_search_desktop</i> <br> </br> Tutoriais</a>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -49,9 +53,9 @@
                             <p><h6>Gerenciar informações sobre os hóspedes</h6><br><br>
                                 Lista de hóspedes da Casa de Apoio Madre Ana com informações pessoais e de sua hospedagem </p>
                                 <div class="col-md-12 ">
-                                    <button type="submit" class="btn btn-rose">
+                                    <a type="button" href="{{ route('hospedes.lista') }}"  class="btn btn-rose">
                                         Lista de hóspedes
-                                    </button>
+                                    </a>
                                 </div>
                         </div>
                         <div class="tab-pane" id="quartos">
@@ -89,6 +93,9 @@
                         <div class="tab-pane" id="relatorios">
                             <p><h6>Relatórios do Sistema</h6><br><br>
                             São disponibilizados em formato csv alguns relatórios que são de suma importância para a administração da Casa</p>
+                        </div>
+                        <div class="tab-pane" id="tutoriais">
+                            <p><h6>Tutoriais do Sistema</h6><br><br></p>
                         </div>
                     </div>
                 </div>

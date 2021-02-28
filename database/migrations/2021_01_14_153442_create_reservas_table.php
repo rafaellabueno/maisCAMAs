@@ -24,6 +24,8 @@ class CreateReservasTable extends Migration
             $table->string('status');
             $table->string('urgencia');
             $table->string('situacao_quarto')->nullable();
+            $table->boolean('paciente');
+            $table->string('nome_paciente')->nullable();
             $table->timestamps();
         });
     }

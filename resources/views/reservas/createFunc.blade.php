@@ -17,7 +17,7 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <h6 class="card-category text-info" >
-                                            Dados dos hópedes
+                                            Dados dos hóspedes
                                         </h6>
                                         <div class="col-md-12">
 
@@ -117,7 +117,7 @@
                                                     <span class="input-group-text">
                                                         <i class="material-icons">face</i>
                                                     </span>
-                                                    <input type="text" class="form-control" id="paciente" placeholder="Nome do paciente..." name="nome_paciente" value="{{ old('nome_paciente') }}" disabled>
+                                                    <input type="text" class="form-control" id="paciente" placeholder="Nome do paciente..." name="nome_paciente" value="{{ old('nome_paciente') }}">
                                                     <div class="col-md-12">
                                                         @error('nome_paciente')
                                                         <span class="help-block">
@@ -149,7 +149,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-check form-check-inline">
                                                     <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" onclick="desabilitar('sim')" id="check" name="paciente" disabled> O hóspede é um acompanhante de um paciente da Santa Casa
+                                                        <input class="form-check-input" type="checkbox" onclick="desabilitar('sim')" id="check" name="paciente" > O hóspede é um acompanhante de um paciente da Santa Casa
                                                         <span class="form-check-sign">
                                                         <span class="check"></span>
                                                     </span>
@@ -303,7 +303,6 @@
                 document.getElementById("cidade").setAttribute('value', res.cidade);
                 document.getElementById("telefone").setAttribute('value', res.telefone);
                 document.getElementById("email").setAttribute('value', res.email)
-                document.getElementById("paciente").setAttribute('value', res.nome_paciente);
                 document.getElementById("data_nascimento").setAttribute('value', res.data_nascimento);
                 if(document.getElementById("paciente") != "NULL"){
                     document.getElementById("check").checked = true;

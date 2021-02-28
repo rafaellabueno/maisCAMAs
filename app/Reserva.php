@@ -27,6 +27,6 @@ class Reserva extends Model
      */
     protected $fillable = [
         'data_entrada', 'data_saida', 'especialidade', 'observacao',  'acessibilidade', 'crianca', 'status',
-        'urgencia', 'situacao_quarto',
+        'urgencia', 'situacao_quarto', 'paciente',  'nome_paciente'
     ];
 }

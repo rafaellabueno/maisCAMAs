@@ -27,6 +27,12 @@ Route::get('/usuarios/editar/{id}', 'UsuarioController@edita')->name('usuarios.e
 Route::post('/usuarios/edita', 'UsuarioController@editar')->name('usuarios.editar');
 Route::get('funcoes/dados-funcao/{id}', 'UsuarioController@dadosFuncao'); //Ajax
 
+//Hospedes
+Route::get('/hospedes/dashboard', 'HospedeController@index')->name('hospedes.lista');
+Route::get('/hospedes/{id}', 'HospedeController@show')->name('hospedes.show');
+Route::get('/hospedes/editar/{id}', 'HospedeController@edita')->name('hospedes.edita');
+Route::post('/hospedes/edita', 'HospedeController@editar')->name('hospedes.editar');
+
 //Quartos
 Route::get('/quartos/dashboard', 'QuartoController@index')->name('quartos.lista');
 Route::get('/quartos/cadastrar', 'QuartoController@cadastro')->name('quartos.cadastro');

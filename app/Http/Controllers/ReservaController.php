@@ -72,11 +72,9 @@ class ReservaController extends Controller
             'nome' => $data['nome'],
             'cidade' => $data['cidade'],
             'data_nascimento' => $data['data'],
-            'paciente' => $data['paciente'],
             'rg' => $data['rg'],
             'email' => $data['email'],
             'telefone' => $data['telefone'],
-            'nome_paciente' => $data['nome_paciente'],
         ]);
 
         $r = Reserva::create([
@@ -89,6 +87,8 @@ class ReservaController extends Controller
             'status' => "Solicitada",
             'urgencia' => $data['urgencia'],
             'situacao_quarto' => NULL,
+            'paciente' => $data['paciente'],
+            'nome_paciente' => $data['nome_paciente'],
         ]);
 
         DB::table('reserva_pessoa_quarto')
@@ -146,6 +146,8 @@ class ReservaController extends Controller
             'status' => "Solicitada",
             'urgencia' => $data['urgencia'],
             'situacao_quarto' => NULL,
+            'paciente' => $data['paciente'],
+            'nome_paciente' => $data['nome_paciente'],
         ]);
 
         $id = Pessoa::where([['email', '=', $data['email']]])->first()->id;
@@ -178,7 +180,7 @@ class ReservaController extends Controller
     public function show($id){
         $reserva = DB::table('reservas')->join('reserva_pessoa_quarto', 'reservas.id', '=', 'reserva_pessoa_quarto.reserva_id')
             ->join('pessoas', 'pessoas.id', '=', 'reserva_pessoa_quarto.pessoa_id')
-            ->select('reservas.id','pessoas.nome', 'reservas.created_at', 'reservas.status', 'pessoas.cidade', 'pessoas.telefone', 'pessoas.email', 'pessoas.rg', 'pessoas.nome_paciente',
+            ->select('reservas.id','pessoas.nome', 'reservas.created_at', 'reservas.status', 'pessoas.cidade', 'pessoas.telefone', 'pessoas.email', 'pessoas.rg', 'reservas.nome_paciente',
                 'pessoas.data_nascimento', 'reservas.data_entrada', 'reservas.data_saida', 'reservas.especialidade',
             'reservas.observacao', 'reservas.urgencia', 'reservas.acessibilidade', 'reservas.crianca')
             ->where('reserva_pessoa_quarto.reserva_id', $id)->distinct()
@@ -191,7 +193,7 @@ class ReservaController extends Controller
     public function showPendente($id){
         $reserva = DB::table('reservas')->join('reserva_pessoa_quarto', 'reservas.id', '=', 'reserva_pessoa_quarto.reserva_id')
             ->join('pessoas', 'pessoas.id', '=', 'reserva_pessoa_quarto.pessoa_id')
-            ->select('reservas.id','pessoas.nome', 'reservas.created_at', 'reservas.status', 'pessoas.cidade', 'pessoas.telefone', 'pessoas.email', 'pessoas.rg', 'pessoas.nome_paciente',
+            ->select('reservas.id','pessoas.nome', 'reservas.created_at', 'reservas.status', 'pessoas.cidade', 'pessoas.telefone', 'pessoas.email', 'pessoas.rg', 'reservas.nome_paciente',
                 'pessoas.data_nascimento', 'reservas.data_entrada', 'reservas.data_saida', 'reservas.especialidade',
                 'reservas.observacao', 'reservas.urgencia', 'reservas.acessibilidade', 'reservas.crianca')
             ->where('reserva_pessoa_quarto.reserva_id', $id)->distinct()
@@ -204,7 +206,7 @@ class ReservaController extends Controller
     public function edita($id){
         $reserva = DB::table('reservas')->join('reserva_pessoa_quarto', 'reservas.id', '=', 'reserva_pessoa_quarto.reserva_id')
             ->join('pessoas', 'pessoas.id', '=', 'reserva_pessoa_quarto.pessoa_id')
-            ->select('reservas.id', 'reserva_pessoa_quarto.pessoa_id','pessoas.nome', 'reservas.created_at', 'reservas.status', 'pessoas.cidade', 'pessoas.telefone', 'pessoas.email', 'pessoas.rg', 'pessoas.nome_paciente',
+            ->select('reservas.id', 'reserva_pessoa_quarto.pessoa_id','pessoas.nome', 'reservas.created_at', 'reservas.status', 'pessoas.cidade', 'pessoas.telefone', 'pessoas.email', 'pessoas.rg', 'reservas.nome_paciente',
                 'pessoas.data_nascimento', 'reservas.data_entrada', 'reservas.data_saida', 'reservas.especialidade',
                 'reservas.observacao', 'reservas.urgencia', 'reservas.acessibilidade', 'reservas.crianca')
             ->where('reserva_pessoa_quarto.reserva_id', $id)->distinct()
@@ -254,11 +256,9 @@ class ReservaController extends Controller
                 'nome' => $data['nome'],
                 'cidade' => $data['cidade'],
                 'data_nascimento' => $data['data'],
-                'paciente' => $data['paciente'],
                 'rg' => $data['rg'],
                 'email' => $data['email'],
                 'telefone' => $data['telefone'],
-                'nome_paciente' => $data['nome_paciente'],
             ]);
 
         Reserva::where('id', $idr)
@@ -271,6 +271,8 @@ class ReservaController extends Controller
                 'status' => "Solicitada",
                 'urgencia' => $data['urgencia'],
                 'situacao_quarto' => NULL,
+                'paciente' => $data['paciente'],
+                'nome_paciente' => $data['nome_paciente'],
             ]);
 
         return redirect()->route('reservas.solicitacoes');
@@ -286,7 +288,7 @@ class ReservaController extends Controller
         $reservasP = DB::table('reservas')->join('reserva_pessoa_quarto', 'reservas.id', '=', 'reserva_pessoa_quarto.reserva_id')
             ->join('pessoas', 'pessoas.id', '=', 'reserva_pessoa_quarto.pessoa_id')
             ->join('users', 'users.id', '=', 'reserva_pessoa_quarto.user_id')
-            ->select('reservas.id', 'reserva_pessoa_quarto.pessoa_id','pessoas.nome', 'reservas.created_at', 'reservas.status', 'pessoas.cidade', 'pessoas.telefone', 'pessoas.email', 'pessoas.rg', 'pessoas.nome_paciente',
+            ->select('reservas.id', 'reserva_pessoa_quarto.pessoa_id','pessoas.nome', 'reservas.created_at', 'reservas.status', 'pessoas.cidade', 'pessoas.telefone', 'pessoas.email', 'pessoas.rg', 'reservas.nome_paciente',
                 'pessoas.data_nascimento', 'reservas.data_entrada', 'reservas.data_saida', 'reservas.especialidade',
                 'reservas.observacao', 'reservas.urgencia', 'reservas.acessibilidade', 'reservas.crianca', 'users.name')
             ->where('reservas.status', "Solicitada")->distinct()
@@ -295,7 +297,7 @@ class ReservaController extends Controller
         $reservasR = DB::table('reservas')->join('reserva_pessoa_quarto', 'reservas.id', '=', 'reserva_pessoa_quarto.reserva_id')
             ->join('pessoas', 'pessoas.id', '=', 'reserva_pessoa_quarto.pessoa_id')
             ->join('users', 'users.id', '=', 'reserva_pessoa_quarto.user_id')
-            ->select('reservas.id', 'reserva_pessoa_quarto.pessoa_id','pessoas.nome', 'reservas.created_at', 'reservas.status', 'pessoas.cidade', 'pessoas.telefone', 'pessoas.email', 'pessoas.rg', 'pessoas.nome_paciente',
+            ->select('reservas.id', 'reserva_pessoa_quarto.pessoa_id','pessoas.nome', 'reservas.created_at', 'reservas.status', 'pessoas.cidade', 'pessoas.telefone', 'pessoas.email', 'pessoas.rg', 'reservas.nome_paciente',
                 'pessoas.data_nascimento', 'reservas.data_entrada', 'reservas.data_saida', 'reservas.especialidade',
                 'reservas.observacao', 'reservas.urgencia', 'reservas.acessibilidade', 'reservas.crianca', 'users.name')
             ->where('reservas.status', "Recusada")->distinct()

@@ -17,7 +17,7 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <h6 class="card-category text-info" >
-                                            Dados dos hópedes
+                                            Dados dos hóspedes
                                         </h6>
                                         <div class="col-md-12">
                                             <div class="input-group @error('nome') invalid-feedback @enderror" style="margin-bottom: 20px;">

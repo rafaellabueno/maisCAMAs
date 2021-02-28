@@ -28,6 +28,12 @@
                                             Recusadas
                                         </a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#liberadas-1" role="tab" data-toggle="tab">
+                                            <i class="material-icons">star</i>
+                                            Liberadas
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -96,6 +102,9 @@
                                             @endforeach
                                             </tbody>
                                         </table>
+                                    </div>
+                                    <div class="tab-pane" id="liberadas-1">
+
                                     </div>
                                 </div>
                     </div>

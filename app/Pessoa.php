@@ -26,6 +26,6 @@ class Pessoa extends Model
      * @var array
      */
     protected $fillable = [
-        'nome', 'cidade', 'data_nascimento', 'paciente', 'rg', 'email', 'telefone', 'nome_paciente'
+        'nome', 'cidade', 'data_nascimento', 'rg', 'email', 'telefone'
     ];
 }
