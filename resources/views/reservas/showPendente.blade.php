@@ -13,7 +13,7 @@
                             <input type="hidden" name="_token" value="{{{ csrf_token() }}}"/>
                             <div class="row text-right">
                                 <div class="col-md-12">
-                                <a href="" type="button" rel="tooltip" class="btn btn-success btn-round">
+                                <a type="button" href="{{ route('reservas.aprovar', $reserva->first()->id) }}" rel="tooltip" class="btn btn-success btn-round">
                                     <i class="material-icons">check</i>
                                 </a>
                                     <a href="javascript:void(0); " id-reserva="{{ $reserva->first()->id }}" type="button" rel="tooltip" class="btn btn-danger btn-round exclusao">

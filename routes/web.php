@@ -58,6 +58,11 @@ Route::get('reservas/dados-pessoa/{rg}', 'ReservaController@dadosPessoa'); //Aja
 Route::get('/reservas/lista', 'ReservaController@lista')->name('reservas.lista');
 Route::get('/reservas/pendentes/{id}', 'ReservaController@showPendente')->name('solicitacoes.showPend');
 Route::get('/reservas/recusar/{id}/{s}', 'ReservaController@recusar'); //Ajax
+Route::get('/reservas/aprovar/{id}', 'ReservaController@aprovar')->name('reservas.aprovar');
+Route::post('/reservas/aprova', 'ReservaController@aprova')->name('reservas.aprova');
+Route::get('/reservas/aprovar/quarto/{idP}/{idR}/{idQ}', 'ReservaController@aprovarQuarto')->name('reservas.aprovarQuarto');
+Route::post('/reservas/aprova/quarto', 'ReservaController@aprovaQuarto')->name('reservas.aprovaQuarto');
+Route::get('/reservas/filtrar/{id}/{andar}', 'ReservaController@filtrar')->name('reservas.filtrar');
 
 Auth::routes();
 

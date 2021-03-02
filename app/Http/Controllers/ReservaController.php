@@ -331,4 +331,120 @@ class ReservaController extends Controller
         return 'false';
     }
 
+    public function aprovar($id)
+    {
+        $reserva = DB::table('reservas')->join('reserva_pessoa_quarto', 'reservas.id', '=', 'reserva_pessoa_quarto.reserva_id')
+            ->join('pessoas', 'pessoas.id', '=', 'reserva_pessoa_quarto.pessoa_id')
+            ->join('users', 'users.id', '=', 'reserva_pessoa_quarto.user_id')
+            ->select('reservas.id', 'reserva_pessoa_quarto.pessoa_id','pessoas.nome', 'reservas.created_at', 'reservas.status', 'pessoas.cidade', 'pessoas.telefone', 'pessoas.email', 'pessoas.rg', 'reservas.nome_paciente',
+                'pessoas.data_nascimento', 'reservas.data_entrada', 'reservas.data_saida', 'reservas.especialidade',
+                'reservas.observacao', 'reservas.urgencia', 'reservas.acessibilidade', 'reservas.crianca', 'users.name')
+            ->where('reservas.id', $id)->distinct()
+            ->get();
+
+        $andares = DB::table('quartos')->select( 'andar')->distinct()->get();
+
+        $quartos = DB::table('quartos')
+            ->select( 'id', 'numero', 'andar', 'status', 'banheiro', 'acessibilidade')
+            ->distinct()->get();
+
+        $camas = DB::table('camas')
+            ->select( 'id', 'cama', 'quantidade', 'ocupadas', 'quarto_id')
+            ->distinct()->get();
+
+
+        $hospedes = DB::table('pessoas')
+            ->join('reserva_pessoa_quarto', 'pessoas.id', '=', 'reserva_pessoa_quarto.pessoa_id')
+            ->select('pessoas.id', 'pessoas.nome', 'reserva_pessoa_quarto.quarto_id')
+            ->where('pessoas.id', 'reserva_pessoa_quarto.pessoa_id')->distinct()->get();
+
+        return view('reservas.aprovar')->withReserva($reserva)->withAndares($andares)->withQuartos($quartos)->withCamas($camas)->withHospedes($hospedes);
+    }
+
+    public function aprova(Request $req){
+        $data = $req;
+
+        Reserva::where('id', $data['id_reserva'])
+            ->update(['data_entrada' => $data['data_entrada'],
+                'data_saida' => $data['data_saida'],
+            ]);
+
+
+        return redirect()->route('reservas.aprovarQuarto', array($data['id_pessoa'], $data['id_reserva'], $data['radio']));
+
+    }
+
+    public function aprovarQuarto($idPessoa, $idReserva, $idQuarto){
+
+        $reserva = DB::table('reservas')->join('reserva_pessoa_quarto', 'reservas.id', '=', 'reserva_pessoa_quarto.reserva_id')
+            ->join('pessoas', 'pessoas.id', '=', 'reserva_pessoa_quarto.pessoa_id')
+            ->join('users', 'users.id', '=', 'reserva_pessoa_quarto.user_id')
+            ->select('reservas.id', 'reserva_pessoa_quarto.pessoa_id','pessoas.nome', 'reservas.created_at', 'reservas.status', 'pessoas.cidade', 'pessoas.telefone', 'pessoas.email', 'pessoas.rg', 'reservas.nome_paciente',
+                'pessoas.data_nascimento', 'reservas.data_entrada', 'reservas.data_saida', 'reservas.especialidade',
+                'reservas.observacao', 'reservas.urgencia', 'reservas.acessibilidade', 'reservas.crianca', 'users.name')
+            ->where('reservas.id', $idReserva)->distinct()
+            ->get();
+
+        $quarto = DB::table('quartos')
+            ->select( 'id', 'numero', 'andar', 'status', 'banheiro', 'acessibilidade')
+            ->where('id', $idQuarto)
+            ->distinct()->get();
+
+        $camas = DB::table('camas')
+            ->select( 'id', 'cama', 'quantidade', 'ocupadas', 'quarto_id')
+            ->where('quarto_id', $idQuarto)
+            ->distinct()->get();
+
+
+        $hospedes = DB::table('pessoas')
+            ->join('reserva_pessoa_quarto', 'pessoas.id', '=', 'reserva_pessoa_quarto.pessoa_id')
+            ->select('pessoas.id', 'pessoas.nome', 'reserva_pessoa_quarto.quarto_id')
+            ->where('pessoas.id', 'reserva_pessoa_quarto.pessoa_id')
+            ->where('reserva_pessoa_quarto.quarto_id', $idQuarto)->distinct()->get();
+
+
+        return view('reservas.aprovarQuarto')->withPessoa($idPessoa)->withReserva($reserva)->withQuarto($quarto)->withCamas($camas)->withHospedes($hospedes);
+    }
+
+    public function aprovaQuarto(Request $req){
+
+    }
+
+    public function filtrar($id, $andar)
+    {
+        $reserva = DB::table('reservas')->join('reserva_pessoa_quarto', 'reservas.id', '=', 'reserva_pessoa_quarto.reserva_id')
+            ->join('pessoas', 'pessoas.id', '=', 'reserva_pessoa_quarto.pessoa_id')
+            ->join('users', 'users.id', '=', 'reserva_pessoa_quarto.user_id')
+            ->select('reservas.id', 'reserva_pessoa_quarto.pessoa_id','pessoas.nome', 'reservas.created_at', 'reservas.status', 'pessoas.cidade', 'pessoas.telefone', 'pessoas.email', 'pessoas.rg', 'reservas.nome_paciente',
+                'pessoas.data_nascimento', 'reservas.data_entrada', 'reservas.data_saida', 'reservas.especialidade',
+                'reservas.observacao', 'reservas.urgencia', 'reservas.acessibilidade', 'reservas.crianca', 'users.name')
+            ->where('reservas.id', $id)->distinct()
+            ->get();
+
+        $andares = DB::table('quartos')->select( 'andar')
+            ->where('andar', $andar)
+            ->distinct()->get();
+
+        $quartos = DB::table('quartos')
+            ->select( 'id', 'numero', 'andar', 'status', 'banheiro', 'acessibilidade')
+            ->where('andar', $andar)
+            ->distinct()->get();
+
+        $camas = DB::table('camas')
+            ->join('quartos', 'quartos.id', '=', 'camas.quarto_id')
+            ->select( 'camas.id', 'camas.cama', 'camas.quantidade', 'camas.ocupadas', 'camas.quarto_id')
+            ->where('quartos.andar', $andar)
+            ->distinct()->get();
+
+
+        $hospedes = DB::table('pessoas')
+            ->join('reserva_pessoa_quarto', 'pessoas.id', '=', 'reserva_pessoa_quarto.pessoa_id')
+            ->join('quartos', 'quartos.id', '=', 'reserva_pessoa_quarto.quarto_id')
+            ->select('pessoas.id', 'pessoas.nome', 'reserva_pessoa_quarto.quarto_id')
+            ->where('pessoas.id', 'reserva_pessoa_quarto.pessoa_id')
+            ->where('quartos.andar', $andar)->distinct()->get();
+
+        return view('reservas.aprovar')->withReserva($reserva)->withAndares($andares)->withQuartos($quartos)->withCamas($camas)->withHospedes($hospedes);
+    }
+
 }

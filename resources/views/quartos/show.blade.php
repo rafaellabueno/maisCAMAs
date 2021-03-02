@@ -134,11 +134,10 @@
                                                             <label class="form-check-label">
                                                                 <input class="form-check-input" checked disabled type="checkbox" name="cama">CAMA DE SOLTEIRO
                                                                 <span class="form-check-sign">
-                                                    <span class="check"></span>
-                                                </span>
+                                                                    <span class="check"></span>
+                                                                </span>
                                                                 <br><br><label> Quantidade: {{$cama->quantidade}} </label>
                                                             </label>
-
                                                         </div>
                                                     </div>
                                                 </div>
