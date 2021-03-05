@@ -38,9 +38,9 @@
 
                                     <div class="col-md-12">
                                         @error('email')
-                                        <span class="help-block">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                            <span class="help-block">
+                                            <strong>{{ $message }}</strong>
+                                            </span>
                                         @enderror
                                     </div>
                                 </div>

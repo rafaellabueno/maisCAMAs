@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Notifications\Notificacao;
 use App\Reserva;
 use App\User;
+use App\Quarto;
+use App\Cama;
 use App\Pessoa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -294,6 +296,15 @@ class ReservaController extends Controller
             ->where('reservas.status', "Solicitada")->distinct()
             ->get();
 
+        $reservasA = DB::table('reservas')->join('reserva_pessoa_quarto', 'reservas.id', '=', 'reserva_pessoa_quarto.reserva_id')
+            ->join('pessoas', 'pessoas.id', '=', 'reserva_pessoa_quarto.pessoa_id')
+            ->join('users', 'users.id', '=', 'reserva_pessoa_quarto.user_id')
+            ->select('reservas.id', 'reserva_pessoa_quarto.pessoa_id','pessoas.nome', 'reservas.created_at', 'reservas.status', 'pessoas.cidade', 'pessoas.telefone', 'pessoas.email', 'pessoas.rg', 'reservas.nome_paciente',
+                'pessoas.data_nascimento', 'reservas.data_entrada', 'reservas.data_saida', 'reservas.especialidade',
+                'reservas.observacao', 'reservas.urgencia', 'reservas.acessibilidade', 'reservas.crianca', 'users.name')
+            ->where('reservas.status', "Aprovada")->distinct()
+            ->get();
+
         $reservasR = DB::table('reservas')->join('reserva_pessoa_quarto', 'reservas.id', '=', 'reserva_pessoa_quarto.reserva_id')
             ->join('pessoas', 'pessoas.id', '=', 'reserva_pessoa_quarto.pessoa_id')
             ->join('users', 'users.id', '=', 'reserva_pessoa_quarto.user_id')
@@ -303,7 +314,16 @@ class ReservaController extends Controller
             ->where('reservas.status', "Recusada")->distinct()
             ->get();
 
-        return view('reservas.list')->withReservasP($reservasP)->withReservasR($reservasR);
+        $reservasL = DB::table('reservas')->join('reserva_pessoa_quarto', 'reservas.id', '=', 'reserva_pessoa_quarto.reserva_id')
+            ->join('pessoas', 'pessoas.id', '=', 'reserva_pessoa_quarto.pessoa_id')
+            ->join('users', 'users.id', '=', 'reserva_pessoa_quarto.user_id')
+            ->select('reservas.id', 'reserva_pessoa_quarto.pessoa_id','pessoas.nome', 'reservas.created_at', 'reservas.status', 'pessoas.cidade', 'pessoas.telefone', 'pessoas.email', 'pessoas.rg', 'reservas.nome_paciente',
+                'pessoas.data_nascimento', 'reservas.situacao_quarto', 'reservas.data_entrada', 'reservas.data_saida', 'reservas.especialidade',
+                'reservas.observacao', 'reservas.urgencia', 'reservas.acessibilidade', 'reservas.crianca', 'users.name')
+            ->where('reservas.status', "Liberada")->distinct()
+            ->get();
+
+        return view('reservas.list')->withReservasL($reservasL)->withReservasP($reservasP)->withReservasR($reservasR)->withReservasA($reservasA);
     }
 
     public function recusar($id, $s)
@@ -356,7 +376,7 @@ class ReservaController extends Controller
         $hospedes = DB::table('pessoas')
             ->join('reserva_pessoa_quarto', 'pessoas.id', '=', 'reserva_pessoa_quarto.pessoa_id')
             ->select('pessoas.id', 'pessoas.nome', 'reserva_pessoa_quarto.quarto_id')
-            ->where('pessoas.id', 'reserva_pessoa_quarto.pessoa_id')->distinct()->get();
+            ->distinct()->get();
 
         return view('reservas.aprovar')->withReserva($reserva)->withAndares($andares)->withQuartos($quartos)->withCamas($camas)->withHospedes($hospedes);
     }
@@ -399,7 +419,6 @@ class ReservaController extends Controller
         $hospedes = DB::table('pessoas')
             ->join('reserva_pessoa_quarto', 'pessoas.id', '=', 'reserva_pessoa_quarto.pessoa_id')
             ->select('pessoas.id', 'pessoas.nome', 'reserva_pessoa_quarto.quarto_id')
-            ->where('pessoas.id', 'reserva_pessoa_quarto.pessoa_id')
             ->where('reserva_pessoa_quarto.quarto_id', $idQuarto)->distinct()->get();
 
 
@@ -407,7 +426,97 @@ class ReservaController extends Controller
     }
 
     public function aprovaQuarto(Request $req){
+        $data = $req;
 
+        $camas = DB::table('camas')
+            ->select( 'id', 'cama', 'quantidade', 'ocupadas', 'quarto_id')
+            ->where('quarto_id', $data['id_quarto'])
+            ->distinct()->get();
+
+        foreach ($camas as $cama){
+            if($data['camasolteiro'] != null && $cama->cama == "Cama Solteiro"){
+                $qtd = $data['camasolteiro'] + $cama->ocupadas;
+                if($qtd > $cama->quantidade){
+                    return redirect()->back()->withErrors(['quantidade' => 'As vagas ocupadas ultrapassam o limite do quarto']);
+                }
+                else{
+                    $qtdCS = $qtd;
+                }
+            }
+
+            if($data['camacasal'] != null && $cama->cama == "Cama Casal"){
+                if($data['camacasal'] != null && $cama->cama == "Cama Casal"){
+                    $qtd = $data['camacasal'] + $cama->ocupadas;
+                    if($qtd > $cama->quantidade){
+                        return redirect()->back()->withErrors(['quantidade' => 'As vagas ocupadas ultrapassam o limite do quarto']);
+                    }
+                    else{
+                        $qtdCC = $qtd;
+                    }
+                }
+            }
+
+            if($data['bicama'] != null && $cama->cama == "Bicama"){
+                if($data['bicama'] != null && $cama->cama == "Bicama"){
+                    $qtd = $data['bicama'] + $cama->ocupadas;
+                    if($qtd > $cama->quantidade){
+                        return redirect()->back()->withErrors(['quantidade' => 'As vagas ocupadas ultrapassam o limite do quarto']);
+                    }
+                    else{
+                        $qtdB = $qtd;
+                    }
+                }
+            }
+
+            if($data['berco'] != null && $cama->cama == "Berço"){
+                if($data['berco'] != null && $cama->cama == "Berço"){
+                    $qtd = $data['berco'] + $cama->ocupadas;
+                    if($qtd > $cama->quantidade){
+                        return redirect()->back()->withErrors(['quantidade' => 'As vagas ocupadas ultrapassam o limite do quarto']);
+                    }
+                    else{
+                        $qtdBe = $qtd;
+                    }
+                }
+            }
+        }
+
+        if(isset($qtdCS)){
+            Cama::where('cama', "Cama Solteiro")->where('quarto_id', $data['id_quarto'])
+                ->update(['ocupadas' => $qtdCS,
+                ]);
+        }
+
+        if(isset($qtdCC)){
+            Cama::where('cama', "Cama Casal")->where('quarto_id', $data['id_quarto'])
+                ->update(['ocupadas' => $qtdCC,
+                ]);
+        }
+
+        if(isset($qtdB)){
+            Cama::where('cama', "Bicama")->where('quarto_id', $data['id_quarto'])
+                ->update(['ocupadas' => $qtdB,
+                ]);
+        }
+
+        if(isset($qtdBe)){
+            Cama::where('cama', "Berço")->where('quarto_id', $data['id_quarto'])
+                ->update(['ocupadas' => $qtdBe,
+                ]);
+        }
+
+        DB::table('reserva_pessoa_quarto')->where('reserva_id', $data['id_reserva'])
+            ->update(array('quarto_id' => $data['id_quarto']));
+
+        Quarto::where('id', $data['id_quarto'])
+            ->update(['status' => $data['status'],
+            ]);
+
+        Reserva::where('id', $data['id_reserva'])
+            ->update(['status' => "Aprovada",
+            ]);
+
+        return redirect()->route('reservas.lista');
     }
 
     public function filtrar($id, $andar)

@@ -124,6 +124,48 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h6 class="card-category text-info" >
+                                            Reservas do hóspede
+                                        </h6>
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th class="text-center">#</th>
+                                                <th>Data solicitação</th>
+                                                <th>Status</th>
+                                                <th>Número do quarto</th>
+                                                <th>Assistente Social</th>
+                                                <th>Data da reserva</th>
+                                                <th class="text-right">Ações</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            @foreach($reservas as $i => $rA)
+                                                <tr>
+                                                    <td class="text-center">{{ $i + 1}}</td>
+                                                    <td>{{ $rA->created_at }}</td>
+                                                    <td> {{ $rA->status  }}</td>
+                                                    <td>{{ $rA->numero }}</td>
+                                                    <td>{{ $rA->name }}</td>
+                                                    <td>{{ $rA->data_entrada }} - {{ $rA->data_saida }}</td>
+                                                    <td class="td-actions text-right">
+                                                        @if($rA->status == "Aprovada")
+                                                        <a href="{{ route('hospedes.editaQuarto', $rA->id) }}" type="button" rel="tooltip" class="btn btn-success">
+                                                            <i class="material-icons">edit</i>
+                                                        </a>
+                                                            <a href="{{ route('hospedes.checkout', $rA->id) }}" type="button" rel="tooltip" class="btn btn-danger">
+                                                                <i class="material-icons">exit_to_app</i>
+                                                            </a>
+                                                            @endif
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
 
 

@@ -71,7 +71,31 @@
                                         </table>
                                     </div>
                                     <div class="tab-pane" id="aceitas-1">
-
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th class="text-center">#</th>
+                                                <th>Data solicitação</th>
+                                                <th>Nome do hóspede</th>
+                                                <th>Assistente Social</th>
+                                                <th>Data da reserva</th>
+                                                <th class="text-right">Ações</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            @foreach($reservasA as $i => $rA)
+                                                <tr>
+                                                    <td class="text-center">{{ $i + 1}}</td>
+                                                    <td>{{ $rA->created_at }}</td>
+                                                    <td>{{ $rA->nome }}</td>
+                                                    <td>{{ $rA->name }}</td>
+                                                    <td>{{ $rA->data_entrada }} - {{ $rA->data_saida }}</td>
+                                                    <td class="td-actions text-right">
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                            </tbody>
+                                        </table>
                                     </div>
                                     <div class="tab-pane" id="recusadas-1">
                                         <table class="table">
@@ -94,9 +118,6 @@
                                                     <td>{{ $rR->name }}</td>
                                                     <td>{{ $rR->data_entrada }} - {{ $rR->data_saida }}</td>
                                                     <td class="td-actions text-right">
-                                                        <a href="" type="button" rel="tooltip" class="btn btn-info">
-                                                            <i class="material-icons">remove_red_eye</i>
-                                                        </a>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -104,7 +125,33 @@
                                         </table>
                                     </div>
                                     <div class="tab-pane" id="liberadas-1">
-
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th class="text-center">#</th>
+                                                <th>Data solicitação</th>
+                                                <th>Nome do hóspede</th>
+                                                <th>Assistente Social</th>
+                                                <th>Data da reserva</th>
+                                                <th>Situação do Quarto</th>
+                                                <th class="text-right">Ações</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            @foreach($reservasL as $i => $rL)
+                                                <tr>
+                                                    <td class="text-center">{{ $i + 1}}</td>
+                                                    <td>{{ $rL->created_at }}</td>
+                                                    <td>{{ $rL->nome }}</td>
+                                                    <td>{{ $rL->name }}</td>
+                                                    <td>{{ $rL->data_entrada }} - {{ $rL->data_saida }}</td>
+                                                    <td>
+                                                        {{$rL->situacao_quarto}}
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                     </div>

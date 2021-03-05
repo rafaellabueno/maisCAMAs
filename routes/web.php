@@ -32,6 +32,13 @@ Route::get('/hospedes/dashboard', 'HospedeController@index')->name('hospedes.lis
 Route::get('/hospedes/{id}', 'HospedeController@show')->name('hospedes.show');
 Route::get('/hospedes/editar/{id}', 'HospedeController@edita')->name('hospedes.edita');
 Route::post('/hospedes/edita', 'HospedeController@editar')->name('hospedes.editar');
+Route::get('/hospedes/editar/quarto/{id}', 'HospedeController@editaQuarto')->name('hospedes.editaQuarto');
+Route::get('/hospedes/editar/quarto/{idP}/{idR}/{idQ}', 'HospedeController@quartos')->name('hospedes.quartos');
+Route::post('/hospedes/editar/quarto', 'HospedeController@quarto')->name('hospedes.quarto');
+Route::post('/hospedes/edita/quarto', 'HospedeController@editarQuarto')->name('hospedes.editarQuarto');
+Route::get('/hospedes/filtrar/{id}/{andar}', 'HospedeController@filtrar')->name('hospedes.filtrar');
+Route::get('/hospedes/checkout/{id}', 'HospedeController@checkout')->name('hospedes.checkout');
+Route::post('/hospedes/checkout', 'HospedeController@check')->name('hospedes.check');
 
 //Quartos
 Route::get('/quartos/dashboard', 'QuartoController@index')->name('quartos.lista');

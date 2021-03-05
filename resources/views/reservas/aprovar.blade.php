@@ -98,16 +98,16 @@
                                                                 @foreach($camas as $cama)
                                                                     @if($cama->quarto_id == $quarto->id)
                                                                         @if($cama->cama == "Berço")
-                                                                            <span class="badge text-white" style="background-color:#ff9966">{{$cama->quantidade}} Berço, {{$cama->ocupadas}} vaga ocupada</span><br>
+                                                                            <span class="badge text-white" style="background-color:#ff9966">{{$cama->quantidade}} Berço, vagas ocupadas: {{$cama->ocupadas}}</span><br>
                                                                         @endif
                                                                         @if($cama->cama == "Bicama")
-                                                                            <span class="badge text-white" style="background-color:#e3b7d2">{{$cama->quantidade}} Bicama, {{$cama->ocupadas}} vaga ocupada</span><br>
+                                                                            <span class="badge text-white" style="background-color:#e3b7d2">{{$cama->quantidade}} Bicama, vagas ocupadas: {{$cama->ocupadas}} </span><br>
                                                                         @endif
                                                                         @if($cama->cama == "Cama Casal")
-                                                                            <span class="badge text-white" style="background-color:#98e5e7">{{$cama->quantidade}} Cama de Casal, {{$cama->ocupadas}} vaga ocupada</span><br>
+                                                                            <span class="badge text-white" style="background-color:#98e5e7">{{$cama->quantidade}} Cama de Casal, vagas ocupadas: {{$cama->ocupadas}} </span><br>
                                                                         @endif
                                                                         @if($cama->cama == "Cama Solteiro")
-                                                                            <span class="badge text-white" style="background-color:#ffc5c5">{{$cama->quantidade}} Cama de Solteiro, {{$cama->ocupadas}} vaga ocupada</span><br>
+                                                                            <span class="badge text-white" style="background-color:#ffc5c5">{{$cama->quantidade}} Cama de Solteiro, vagas ocupadas: $cama->ocupadas}} </span><br>
                                                                         @endif
                                                                     @endif
                                                                 @endforeach
@@ -118,11 +118,13 @@
                                                                     <span class="badge badge-info" >Banheiro</span>
                                                                 @endif
                                                                 <br><br>
-                                                                    @foreach($hospedes as $hospedes)
-                                                                        @if($hospede->quarto_id == $quarto_id)
+                                                                @foreach($hospedes as $hospede)
+                                                                    @if($hospede->quarto_id != null)
+                                                                        @if($hospede->quarto_id == $quarto->id)
                                                                             {{$hospede->nome}},
                                                                         @endif
-                                                                    @endforeach
+                                                                    @endif
+                                                                @endforeach
 
                                                     </div>
                                                 </div>
@@ -137,7 +139,7 @@
                                                             <div class="card-body">
                                                                 <div class="form-check form-check-radio">
                                                                     <label class="form-check-label">
-                                                                        <input class="form-check-input" type="radio" disabled name="radio" id="exampleRadios2" value="{{$quarto->id}}" checked required>
+                                                                        <input class="form-check-input" type="radio" disabled name="radio" id="exampleRadios2" value="{{$quarto->id}}" required>
                                                                         Selecionar quarto
                                                                         <span class="circle">
                                                                             <span class="check"></span>
@@ -168,9 +170,12 @@
                                                                     <span class="badge badge-info" >Banheiro</span>
                                                                 @endif
                                                                 <br><br>
-                                                                @foreach($hospedes as $hospedes)
-                                                                    @if($hospede->quarto_id == $quarto_id)
-                                                                        {{$hospede->nome}},
+                                                                @foreach($hospedes as $hospede)
+                                                                    @if($hospede->quarto_id != null)
+                                                                        @if($hospede->quarto_id == $quarto->id)
+                                                                            {{dd($hospede)}}
+                                                                            {{$hospede->nome}},
+                                                                        @endif
                                                                     @endif
                                                                 @endforeach
 
@@ -187,7 +192,7 @@
                                                             <div class="card-body">
                                                                 <div class="form-check form-check-radio">
                                                                     <label class="form-check-label">
-                                                                        <input class="form-check-input" type="radio" disabled name="radio" id="exampleRadios2" value="{{$quarto->id}}" checked required>
+                                                                        <input class="form-check-input" type="radio" disabled name="radio" id="exampleRadios2" value="{{$quarto->id}}" required>
                                                                         Selecionar quarto
                                                                         <span class="circle">
                                                                             <span class="check"></span>
@@ -218,9 +223,11 @@
                                                                     <span class="badge badge-info" >Banheiro</span>
                                                                 @endif
                                                                 <br><br>
-                                                                @foreach($hospedes as $hospedes)
-                                                                    @if($hospede->quarto_id == $quarto_id)
-                                                                        {{$hospede->nome}},
+                                                                @foreach($hospedes as $hospede)
+                                                                    @if($hospede->quarto_id != null)
+                                                                        @if($hospede->quarto_id == $quarto->id)
+                                                                            {{$hospede->nome}},
+                                                                        @endif
                                                                     @endif
                                                                 @endforeach
 

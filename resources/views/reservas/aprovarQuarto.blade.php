@@ -14,7 +14,7 @@
                             <input type="hidden" name="_token" value="{{{ csrf_token() }}}"/>
                             <input type="hidden" name="id_reserva" value="{{ $reserva->first()->id }}">
                             <input type="hidden" name="id_pessoa" value="{{ $pessoa }}">
-                            <input type="hidden" name="id_pessoa" value="{{ $quarto->first()->id }}">
+                            <input type="hidden" name="id_quarto" value="{{ $quarto->first()->id }}">
 
                             <br><br>
                             <div class="col-md-12" style="margin-bottom: 20px;">
@@ -35,16 +35,16 @@
                                                                 @foreach($camas as $cama)
                                                                     @if($cama->quarto_id == $quarto->first()->id)
                                                                         @if($cama->cama == "Berço")
-                                                                            <span class="badge text-white" style="background-color:#ff9966">{{$cama->quantidade}} Berço, {{$cama->ocupadas}} vaga ocupada</span><br>
+                                                                            <span class="badge text-white" style="background-color:#ff9966">{{$cama->quantidade}} Berço, vagas ocupadas: {{$cama->ocupadas}} </span><br>
                                                                         @endif
                                                                         @if($cama->cama == "Bicama")
-                                                                            <span class="badge text-white" style="background-color:#e3b7d2">{{$cama->quantidade}} Bicama, {{$cama->ocupadas}} vaga ocupada</span><br>
+                                                                            <span class="badge text-white" style="background-color:#e3b7d2">{{$cama->quantidade}} Bicama, vagas ocupadas:  {{$cama->ocupadas}} </span><br>
                                                                         @endif
                                                                         @if($cama->cama == "Cama Casal")
-                                                                            <span class="badge text-white" style="background-color:#98e5e7">{{$cama->quantidade}} Cama de Casal, {{$cama->ocupadas}} vaga ocupada</span><br>
+                                                                            <span class="badge text-white" style="background-color:#98e5e7">{{$cama->quantidade}} Cama de Casal, vagas ocupadas: {{$cama->ocupadas}} </span><br>
                                                                         @endif
                                                                         @if($cama->cama == "Cama Solteiro")
-                                                                            <span class="badge text-white" style="background-color:#ffc5c5">{{$cama->quantidade}} Cama de Solteiro, {{$cama->ocupadas}} vaga ocupada</span><br>
+                                                                            <span class="badge text-white" style="background-color:#ffc5c5">{{$cama->quantidade}} Cama de Solteiro, vagas ocupadas: {{$cama->ocupadas}} </span><br>
                                                                         @endif
                                                                     @endif
                                                                 @endforeach
@@ -55,11 +55,13 @@
                                                                     <span class="badge badge-info" >Banheiro</span>
                                                                 @endif
                                                                 <br><br>
-                                                                @foreach($hospedes as $hospedes)
-                                                                    @if($hospede->quarto_id == $quarto_id)
-                                                                        {{$hospede->nome}},
-                                                                    @endif
-                                                                @endforeach
+                                                                    @foreach($hospedes as $hospede)
+                                                                        @if($hospede->quarto_id != null)
+                                                                            @if($hospede->quarto_id == $quarto->first()->id)
+                                                                                {{$hospede->nome}},
+                                                                            @endif
+                                                                        @endif
+                                                                    @endforeach
 
                                                             </div>
                                                         </div>
@@ -72,7 +74,7 @@
                                                                     <span class="input-group-text">
                                                                         <i class="material-icons">looks_one</i>
                                                                     </span>
-                                                                                        <input type="number" class="form-control" placeholder="Quantidade de berços ocupados..." name="numero" value="{{ old('numero') }}" required>
+                                                                                        <input type="number" class="form-control" placeholder="Quantidade de berços ocupados..." name="berco" value="{{ old('numero') }}" required>
 
                                                                                         <div class="col-md-12">
                                                                                             @error('numero')
@@ -90,7 +92,7 @@
                                                                     <span class="input-group-text">
                                                                         <i class="material-icons">looks_one</i>
                                                                     </span>
-                                                                        <input type="number" class="form-control" placeholder="Quantidade de bicamas ocupadas..." name="numero" value="{{ old('numero') }}" required>
+                                                                        <input type="number" class="form-control" placeholder="Quantidade de bicamas ocupadas..." name="bicama" value="{{ old('numero') }}" required>
 
                                                                         <div class="col-md-12">
                                                                             @error('numero')
@@ -108,7 +110,7 @@
                                                                     <span class="input-group-text">
                                                                         <i class="material-icons">looks_one</i>
                                                                     </span>
-                                                                        <input type="number" class="form-control" placeholder="Quantidade de camas de solteiro ocupadas..." name="numero" value="{{ old('numero') }}" required>
+                                                                        <input type="number" class="form-control" placeholder="Quantidade de camas de solteiro ocupadas..." name="camasolteiro" value="{{ old('numero') }}" required>
 
                                                                         <div class="col-md-12">
                                                                             @error('numero')
@@ -126,7 +128,7 @@
                                                                     <span class="input-group-text">
                                                                         <i class="material-icons">looks_one</i>
                                                                     </span>
-                                                                        <input type="number" class="form-control" placeholder="Quantidade de camas de casal ocupadas..." name="numero" value="{{ old('numero') }}" required>
+                                                                        <input type="number" class="form-control" placeholder="Quantidade de camas de casal ocupadas..." name="camacasal" value="{{ old('numero') }}" required>
 
                                                                         <div class="col-md-12">
                                                                             @error('numero')
@@ -139,6 +141,13 @@
                                                                 </div>
                                                             @endif
                                                     @endforeach
+                                                    <div class="col-md-12">
+                                                        @error('quantidade')
+                                                            <div class="alert alert-danger" role="alert">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
 
                                                 <div class="row justify-content-center">
                                                     <div class="col-md-7">
