@@ -107,7 +107,7 @@
                                                                             <span class="badge text-white" style="background-color:#98e5e7">{{$cama->quantidade}} Cama de Casal, vagas ocupadas: {{$cama->ocupadas}} </span><br>
                                                                         @endif
                                                                         @if($cama->cama == "Cama Solteiro")
-                                                                            <span class="badge text-white" style="background-color:#ffc5c5">{{$cama->quantidade}} Cama de Solteiro, vagas ocupadas: $cama->ocupadas}} </span><br>
+                                                                            <span class="badge text-white" style="background-color:#ffc5c5">{{$cama->quantidade}} Cama de Solteiro, vagas ocupadas: {{$cama->ocupadas}} </span><br>
                                                                         @endif
                                                                     @endif
                                                                 @endforeach

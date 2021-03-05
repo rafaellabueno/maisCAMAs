@@ -109,7 +109,9 @@ class HospedeController extends Controller
 
         $hospedes = DB::table('pessoas')
             ->join('reserva_pessoa_quarto', 'pessoas.id', '=', 'reserva_pessoa_quarto.pessoa_id')
+            ->join('reservas', 'reservas.id', '=', 'reserva_pessoa_quarto.reserva_id')
             ->select('pessoas.id', 'pessoas.nome', 'reserva_pessoa_quarto.quarto_id')
+            ->where('reservas.status', 'Aceita')
             ->distinct()->get();
 
         return view('hospedes.editQuarto')->withReserva($reserva)->withAndares($andares)->withQuartos($quartos)->withCamas($camas)->withHospedes($hospedes);
@@ -151,7 +153,9 @@ class HospedeController extends Controller
 
         $hospedes = DB::table('pessoas')
             ->join('reserva_pessoa_quarto', 'pessoas.id', '=', 'reserva_pessoa_quarto.pessoa_id')
+            ->join('reservas', 'reservas.id', '=', 'reserva_pessoa_quarto.reserva_id')
             ->select('pessoas.id', 'pessoas.nome', 'reserva_pessoa_quarto.quarto_id')
+            ->where('reservas.status', 'Aceita')
             ->where('reserva_pessoa_quarto.quarto_id', $idQuarto)->distinct()->get();
 
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\MailAceita;
 use App\Notifications\Notificacao;
 use App\Reserva;
 use App\User;
@@ -12,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Jobs\MailRecusaJob;
+use App\Jobs\MailAceitaJob;
 
 class ReservaController extends Controller
 {
@@ -375,7 +377,9 @@ class ReservaController extends Controller
 
         $hospedes = DB::table('pessoas')
             ->join('reserva_pessoa_quarto', 'pessoas.id', '=', 'reserva_pessoa_quarto.pessoa_id')
+            ->join('reservas', 'reservas.id', '=', 'reserva_pessoa_quarto.reserva_id')
             ->select('pessoas.id', 'pessoas.nome', 'reserva_pessoa_quarto.quarto_id')
+            ->where('reservas.status', 'Aceita')
             ->distinct()->get();
 
         return view('reservas.aprovar')->withReserva($reserva)->withAndares($andares)->withQuartos($quartos)->withCamas($camas)->withHospedes($hospedes);
@@ -418,7 +422,9 @@ class ReservaController extends Controller
 
         $hospedes = DB::table('pessoas')
             ->join('reserva_pessoa_quarto', 'pessoas.id', '=', 'reserva_pessoa_quarto.pessoa_id')
+            ->join('reservas', 'reservas.id', '=', 'reserva_pessoa_quarto.reserva_id')
             ->select('pessoas.id', 'pessoas.nome', 'reserva_pessoa_quarto.quarto_id')
+            ->where('reservas.status', 'Aceita')
             ->where('reserva_pessoa_quarto.quarto_id', $idQuarto)->distinct()->get();
 
 
@@ -515,6 +521,19 @@ class ReservaController extends Controller
         Reserva::where('id', $data['id_reserva'])
             ->update(['status' => "Aprovada",
             ]);
+
+        $reserva = DB::table('reservas')->join('reserva_pessoa_quarto', 'reservas.id', '=', 'reserva_pessoa_quarto.reserva_id')
+            ->join('pessoas', 'pessoas.id', '=', 'reserva_pessoa_quarto.pessoa_id')
+            ->join('users', 'users.id', '=', 'reserva_pessoa_quarto.user_id')
+            ->select('reservas.id', 'reserva_pessoa_quarto.pessoa_id','pessoas.nome', 'reservas.created_at', 'reservas.status', 'pessoas.cidade', 'pessoas.telefone', 'pessoas.email', 'pessoas.rg', 'reservas.nome_paciente',
+                'pessoas.data_nascimento', 'reservas.data_entrada', 'reservas.data_saida', 'reservas.especialidade',
+                'reservas.observacao', 'reservas.urgencia', 'reservas.acessibilidade', 'reservas.crianca', 'users.name', 'users.email')
+            ->where('reservas.id', $data['id_reserva'])->distinct()
+            ->get();
+
+        $emailJob = (new MailAceitaJob($reserva->first()->name, $reserva->first()->email))
+            ->delay(\Carbon\Carbon::now()->addSeconds(3));
+        dispatch($emailJob);
 
         return redirect()->route('reservas.lista');
     }
