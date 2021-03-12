@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class IsAssistenteCA
+class Hospede
 {
     /**
      * Handle an incoming request.
@@ -16,7 +16,7 @@ class IsAssistenteCA
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::user()->temFuncao('Assistente Social Casa de Apoio')) {
+        if (Auth::user()->temFuncao('Funcionario Casa de Apoio') || Auth::user()->temFuncao('Master')) {
             return $next($request);
         }
 

@@ -111,7 +111,7 @@
                                                     <span class="input-group-text">
                                                         <i class="material-icons">face</i>
                                                     </span>
-                                                    <input type="text" class="form-control" id="paciente" placeholder="Nome do paciente..." name="nome_paciente" value="{{isset($reserva->first()->nome_paciente) ? $reserva->first()->nome_paciente : ''}}" required >
+                                                    <input type="text" class="form-control" id="paciente" placeholder="Nome do paciente..." name="nome_paciente" value="{{isset($reserva->first()->nome_paciente) ? $reserva->first()->nome_paciente : ''}}"  >
                                                     <div class="col-md-12">
                                                         @error('nome_paciente')
                                                         <span class="help-block">
@@ -199,7 +199,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-12">
+                                            <div class="col-md-6">
                                                 <div class="input-group @error('especialidade') invalid-feedback @enderror" style="margin-bottom: 20px;">
                                                 <span class="input-group-text">
                                                     <i class="material-icons">medical_services</i>
@@ -214,6 +214,23 @@
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            <div class="col-md-6">
+                                                        <div class="input-group @error('quant_hospedes') invalid-feedback @enderror" style="margin-bottom: 20px;">
+                                                        <span class="input-group-text">
+                                                            <i class="material-icons">looks_one</i>
+                                                        </span>
+                                                        <input type="text" class="form-control" placeholder="Quantidade de hóspedes envolvidos..." name="quant_hospedes" value="{{isset($reserva->first()->quant_hospedes) ? $reserva->first()->quant_hospedes : ''}}" required>
+                                                        <div class="col-md-12">
+                                                            @error('quant_hospedes')
+                                                            <span class="help-block">
+                                                                            <strong>{{ $message }}</strong>
+                                                                        </span>
+                                                            @enderror
+                                                        </div>
+                                                        </div>
+                                            </div>
+
                                             <div class="col-md-12">
                                                 <div class="form-check form-check-inline">
                                                     <label class="form-check-label">
@@ -248,15 +265,14 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
 
                             <div class="col-md-12 ">
                                 <button type="submit" class="btn btn-info">
                                     Editar
                                 </button>
                             </div>
-
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>

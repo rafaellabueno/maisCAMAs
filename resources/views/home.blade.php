@@ -10,19 +10,19 @@
                     <div class="nav-tabs-navigation">
                         <div class="nav-tabs-wrapper">
                             <ul class="nav nav-tabs text-center" data-tabs="tabs">
+                                @if (Auth::user()->temFuncao('Master') || Auth::user()->temFuncao('Assistente Social Santa Casa')
+                                    || Auth::user()->temFuncao('Funcionario Casa de Apoio'))
                                 <li class="nav-item">
                                     <a class="nav-link active" href="#reservas" data-toggle="tab">
                                         <i class="material-icons text-center">room_service</i> <br> </br> Reservas</a>
                                 </li>
-                                @if (Auth::user()->temFuncao('Master') || Auth::user()->temFuncao('Assistente Social Casa de Apoio')
+                                @endif
+                                @if (Auth::user()->temFuncao('Master')
                                     || Auth::user()->temFuncao('Funcionario Casa de Apoio'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="#hospedes" data-toggle="tab">
                                         <i class="material-icons text-center">family_restroom</i> <br> </br>Hóspedes</a>
                                 </li>
-                                @endif
-                                @if (Auth::user()->temFuncao('Master') || Auth::user()->temFuncao('Assistente Social Casa de Apoio')
-                                    || Auth::user()->temFuncao('Funcionario Casa de Apoio'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="#quartos" data-toggle="tab">
                                         <i class="material-icons text-center">hotel</i> <br> </br> Quartos</a>

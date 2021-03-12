@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class IsFuncionario
+class Reserva
 {
     /**
      * Handle an incoming request.
@@ -16,7 +16,9 @@ class IsFuncionario
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::user()->temFuncao('Funcionario Casa de Apoio')) {
+        if (Auth::user()->temFuncao('Assistente Social Santa Casa') ||
+            Auth::user()->temFuncao('Master') ||
+            Auth::user()->temFuncao('Funcionario Casa de Apoio')) {
             return $next($request);
         }
 

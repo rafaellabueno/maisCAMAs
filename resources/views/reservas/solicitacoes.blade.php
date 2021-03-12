@@ -19,9 +19,13 @@
                                         Solicitar reserva
                                     </a>
                                     @else
+                                        <a type="buttton" href="{{ route('reservas.cadastro') }}" class="btn btn-info">
+                                            <i class="material-icons">add</i>
+                                            Solicitar primeira reserva
+                                        </a>
                                         <a type="buttton" href="{{ route('reservasFunc.cadastro') }}" class="btn btn-info">
                                             <i class="material-icons">add</i>
-                                            Solicitar reserva
+                                            Solicitar reserva recorrente
                                         </a>
                                     @endif
                                 </div>
@@ -42,7 +46,17 @@
                                     <td>{{date('d/m/Y', strtotime($reserva->created_at))}}</td>
                                     <td>{{ $reserva->nome }}</td>
                                     <td>{{ $reserva->cidade }}</td>
-                                    <td><span class="badge badge-primary">{{ $reserva->status }}</span></td>
+                                    <td>
+                                        @if($reserva->status == "Solicitada")
+                                        <span class="badge badge-primary">{{ $reserva->status }}</span>
+                                        @endif
+                                        @if($reserva->status == "Aprovada")
+                                                <span class="badge badge-success">{{ $reserva->status }}</span>
+                                            @endif
+                                            @if($reserva->status == "Recusada")
+                                                <span class="badge badge-danger">{{ $reserva->status }}</span>
+                                            @endif
+                                    </td>
                                     <td class="td-actions text-right">
                                         @if($reserva->status == "Solicitada")
                                         <a  href="{{ route('solicitacoes.edita', $reserva->id) }}"  type="button" rel="tooltip" class="btn btn-success">
@@ -62,4 +76,7 @@
             </div>
         </div>
     </div>
+
 @endsection
+
+

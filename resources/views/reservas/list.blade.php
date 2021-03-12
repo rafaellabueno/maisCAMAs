@@ -47,7 +47,7 @@
                                                 <th class="text-center">#</th>
                                                 <th>Data solicitação</th>
                                                 <th>Nome do hóspede</th>
-                                                <th>Assistente Social</th>
+                                                <th>Assistente Social/Funcionário</th>
                                                 <th>Data da reserva</th>
                                                 <th class="text-right">Ações</th>
                                             </tr>
@@ -77,7 +77,7 @@
                                                 <th class="text-center">#</th>
                                                 <th>Data solicitação</th>
                                                 <th>Nome do hóspede</th>
-                                                <th>Assistente Social</th>
+                                                <th>Assistente Social/Funcionário</th>
                                                 <th>Data da reserva</th>
                                                 <th class="text-right">Ações</th>
                                             </tr>
@@ -104,7 +104,7 @@
                                                 <th class="text-center">#</th>
                                                 <th>Data solicitação</th>
                                                 <th>Nome do hóspede</th>
-                                                <th>Assistente Social</th>
+                                                <th>Assistente Social/Funcionário</th>
                                                 <th>Data da reserva</th>
                                                 <th class="text-right">Ações</th>
                                             </tr>
@@ -131,7 +131,7 @@
                                                 <th class="text-center">#</th>
                                                 <th>Data solicitação</th>
                                                 <th>Nome do hóspede</th>
-                                                <th>Assistente Social</th>
+                                                <th>Assistente Social/Funcionário</th>
                                                 <th>Data da reserva</th>
                                                 <th>Situação do Quarto</th>
                                                 <th class="text-right">Ações</th>

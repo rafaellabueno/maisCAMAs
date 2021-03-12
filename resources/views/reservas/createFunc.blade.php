@@ -205,7 +205,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-12">
+                                            <div class="col-md-6">
                                                 <div class="input-group @error('especialidade') invalid-feedback @enderror" style="margin-bottom: 20px;">
                                                 <span class="input-group-text">
                                                     <i class="material-icons">medical_services</i>
@@ -213,6 +213,21 @@
                                                     <input type="text" class="form-control" placeholder="Especialidade..." name="especialidade" value="{{ old('especialidade') }}" required>
                                                     <div class="col-md-12">
                                                         @error('especialidade')
+                                                        <span class="help-block">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="input-group @error('quant_hospedes') invalid-feedback @enderror" style="margin-bottom: 20px;">
+                                                <span class="input-group-text">
+                                                    <i class="material-icons">looks_one</i>
+                                                </span>
+                                                    <input type="number" class="form-control" placeholder="Quantidade de hóspedes envolvidos..." name="quant_hospedes" value="{{ old('quant_hospedes') }}" required>
+                                                    <div class="col-md-12">
+                                                        @error('quant_hospedes')
                                                         <span class="help-block">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
@@ -304,7 +319,10 @@
                 document.getElementById("telefone").setAttribute('value', res.telefone);
                 document.getElementById("email").setAttribute('value', res.email)
                 document.getElementById("data_nascimento").setAttribute('value', res.data_nascimento);
-                if(document.getElementById("paciente") != "NULL"){
+                if( res.nome_paciente != undefined){
+                document.getElementById("paciente").setAttribute('value', "");
+                }
+                if(document.getElementById("paciente").value != ""){
                     document.getElementById("check").checked = true;
                 }
             });

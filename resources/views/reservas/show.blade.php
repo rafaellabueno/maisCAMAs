@@ -115,12 +115,20 @@
                                                     <label class="text-rose"> {{date('d/m/Y', strtotime($reserva->first()->data_saida))}}</label>
                                                 </div>
                                             </div>
-                                            <div class="col-md-12">
+                                            <div class="col-md-6">
                                                 <div class="input-group" style="margin-bottom: 20px;">
                                                 <span class="input-group-text">
                                                     <i class="material-icons">medical_services</i>
                                                 </span>
                                                     <label class="text-rose"> {{$reserva->first()->especialidade}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="input-group" style="margin-bottom: 20px;">
+                                                <span class="input-group-text">
+                                                    <i class="material-icons">looks_one</i>
+                                                </span>
+                                                    <label class="text-rose"> {{$reserva->first()->quant_hospedes}}</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
@@ -160,9 +168,31 @@
                                 </div>
                             </div>
 
+                            @if($reserva->first()->status == "Recusada")
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h6 class="card-category text-info" style="margin-bottom: 20px;">
+                                            Observação da recusa
+                                        </h6>
+                                        <div class="row ">
+                                            <div class="col-md-12">
+                                                <div class="input-group" style="margin-bottom: 20px;">
+                                                <span class="input-group-text">
+                                                    <i class="material-icons">textsms</i>
+                                                </span>
+                                                    <label class="text-rose"> {{$reserva->first()->observacao_recusa}}</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @endif
                     </div>
                 </div>
             </div>
         </div>
     </div>
 @endsection
+

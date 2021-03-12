@@ -136,7 +136,7 @@
                                                 <th>Data solicitação</th>
                                                 <th>Status</th>
                                                 <th>Número do quarto</th>
-                                                <th>Assistente Social</th>
+                                                <th>Assistente Social/Funcionário</th>
                                                 <th>Data da reserva</th>
                                                 <th class="text-right">Ações</th>
                                             </tr>
@@ -158,6 +158,9 @@
                                                             <a href="{{ route('hospedes.checkout', $rA->id) }}" type="button" rel="tooltip" class="btn btn-danger">
                                                                 <i class="material-icons">exit_to_app</i>
                                                             </a>
+                                                            @endif
+                                                            @if($rA->status == "Liberada")
+                                                                <a href="javascript:void(0);" type="button" class="modalReserva btn btn-info" data-toggle="modal" data-target="#modal" id-reserva="{{ $rA->id }}"><i class="material-icons blue-icon">remove_red_eye</i></a>
                                                             @endif
                                                     </td>
                                                 </tr>
@@ -182,4 +185,54 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal  -->
+    <div id="ModalR" class="modal fade bd-example-modal-lg" role="dialog2" aria-labelledby="Modal">
+        <div class="modal-dialog" role="document2">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Situação do quarto...</h5>
+                </div>
+                <div class="modal-body">
+
+                    <div class="input-group">
+                <span class="input-group-addon">
+                    <i class="material-icons">textsms</i>
+                </span>
+                        <div class="form-group label-floating">
+                            <span id="reservaModal"></span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fim Modal -->
+@endsection
+
+@section('js')
+    <script type="application/javascript">
+        $('.modalReserva').click(function(){
+
+            var id = $(this).attr('id-reserva');
+
+            //monta a url de consultas
+            var urlConsulta = '../../reservas/dados-reserva/'+id;
+            //faz a consulta via Ajax
+            $.get(urlConsulta, function (res){
+                //altera o DOM
+                $("#reservaModal").html(res.situacao_quarto);
+
+                //abre a modal
+                $("#ModalR").modal();
+
+            });
+
+        })
+    </script>
+
 @endsection

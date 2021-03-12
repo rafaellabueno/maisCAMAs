@@ -173,7 +173,6 @@
                                                                 @foreach($hospedes as $hospede)
                                                                     @if($hospede->quarto_id != null)
                                                                         @if($hospede->quarto_id == $quarto->id)
-                                                                            {{dd($hospede)}}
                                                                             {{$hospede->nome}},
                                                                         @endif
                                                                     @endif

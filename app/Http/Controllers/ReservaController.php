@@ -25,6 +25,7 @@ class ReservaController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('res');
     }
 
     public function cadastro()
@@ -93,6 +94,7 @@ class ReservaController extends Controller
             'situacao_quarto' => NULL,
             'paciente' => $data['paciente'],
             'nome_paciente' => $data['nome_paciente'],
+            'quant_hospedes' => $data['quant_hospedes'],
         ]);
 
         DB::table('reserva_pessoa_quarto')
@@ -152,6 +154,7 @@ class ReservaController extends Controller
             'situacao_quarto' => NULL,
             'paciente' => $data['paciente'],
             'nome_paciente' => $data['nome_paciente'],
+            'quant_hospedes' => $data['quant_hospedes'],
         ]);
 
         $id = Pessoa::where([['email', '=', $data['email']]])->first()->id;
@@ -186,7 +189,7 @@ class ReservaController extends Controller
             ->join('pessoas', 'pessoas.id', '=', 'reserva_pessoa_quarto.pessoa_id')
             ->select('reservas.id','pessoas.nome', 'reservas.created_at', 'reservas.status', 'pessoas.cidade', 'pessoas.telefone', 'pessoas.email', 'pessoas.rg', 'reservas.nome_paciente',
                 'pessoas.data_nascimento', 'reservas.data_entrada', 'reservas.data_saida', 'reservas.especialidade',
-            'reservas.observacao', 'reservas.urgencia', 'reservas.acessibilidade', 'reservas.crianca')
+            'reservas.observacao', 'reservas.urgencia', 'reservas.acessibilidade', 'reservas.crianca', 'reservas.quant_hospedes', 'reservas.observacao_recusa')
             ->where('reserva_pessoa_quarto.reserva_id', $id)->distinct()
             ->get();
 
@@ -199,7 +202,7 @@ class ReservaController extends Controller
             ->join('pessoas', 'pessoas.id', '=', 'reserva_pessoa_quarto.pessoa_id')
             ->select('reservas.id','pessoas.nome', 'reservas.created_at', 'reservas.status', 'pessoas.cidade', 'pessoas.telefone', 'pessoas.email', 'pessoas.rg', 'reservas.nome_paciente',
                 'pessoas.data_nascimento', 'reservas.data_entrada', 'reservas.data_saida', 'reservas.especialidade',
-                'reservas.observacao', 'reservas.urgencia', 'reservas.acessibilidade', 'reservas.crianca')
+                'reservas.observacao', 'reservas.urgencia', 'reservas.acessibilidade', 'reservas.crianca', 'reservas.quant_hospedes')
             ->where('reserva_pessoa_quarto.reserva_id', $id)->distinct()
             ->get();
 
@@ -212,7 +215,7 @@ class ReservaController extends Controller
             ->join('pessoas', 'pessoas.id', '=', 'reserva_pessoa_quarto.pessoa_id')
             ->select('reservas.id', 'reserva_pessoa_quarto.pessoa_id','pessoas.nome', 'reservas.created_at', 'reservas.status', 'pessoas.cidade', 'pessoas.telefone', 'pessoas.email', 'pessoas.rg', 'reservas.nome_paciente',
                 'pessoas.data_nascimento', 'reservas.data_entrada', 'reservas.data_saida', 'reservas.especialidade',
-                'reservas.observacao', 'reservas.urgencia', 'reservas.acessibilidade', 'reservas.crianca')
+                'reservas.observacao', 'reservas.urgencia', 'reservas.acessibilidade', 'reservas.crianca', 'reservas.quant_hospedes')
             ->where('reserva_pessoa_quarto.reserva_id', $id)->distinct()
             ->get();
 
@@ -277,6 +280,7 @@ class ReservaController extends Controller
                 'situacao_quarto' => NULL,
                 'paciente' => $data['paciente'],
                 'nome_paciente' => $data['nome_paciente'],
+                'quant_hospedes' => $data['quant_hospedes'],
             ]);
 
         return redirect()->route('reservas.solicitacoes');
@@ -328,13 +332,14 @@ class ReservaController extends Controller
         return view('reservas.list')->withReservasL($reservasL)->withReservasP($reservasP)->withReservasR($reservasR)->withReservasA($reservasA);
     }
 
-    public function recusar($id, $s)
+    public function recusar($id, $s, $observacao)
     {
 
         if (password_verify($s, Auth::user()->password)) {
             Reserva::where('id', $id)
                 ->update([
                     'status' => "Recusada",
+                    'observacao_recusa' => $observacao,
                 ]);
 
             $reserva = DB::table('reservas')->join('reserva_pessoa_quarto', 'reservas.id', '=', 'reserva_pessoa_quarto.reserva_id')
@@ -379,7 +384,7 @@ class ReservaController extends Controller
             ->join('reserva_pessoa_quarto', 'pessoas.id', '=', 'reserva_pessoa_quarto.pessoa_id')
             ->join('reservas', 'reservas.id', '=', 'reserva_pessoa_quarto.reserva_id')
             ->select('pessoas.id', 'pessoas.nome', 'reserva_pessoa_quarto.quarto_id')
-            ->where('reservas.status', 'Aceita')
+            ->where('reservas.status', 'Aprovada')
             ->distinct()->get();
 
         return view('reservas.aprovar')->withReserva($reserva)->withAndares($andares)->withQuartos($quartos)->withCamas($camas)->withHospedes($hospedes);
@@ -424,7 +429,7 @@ class ReservaController extends Controller
             ->join('reserva_pessoa_quarto', 'pessoas.id', '=', 'reserva_pessoa_quarto.pessoa_id')
             ->join('reservas', 'reservas.id', '=', 'reserva_pessoa_quarto.reserva_id')
             ->select('pessoas.id', 'pessoas.nome', 'reserva_pessoa_quarto.quarto_id')
-            ->where('reservas.status', 'Aceita')
+            ->where('reservas.status', 'Aprovada')
             ->where('reserva_pessoa_quarto.quarto_id', $idQuarto)->distinct()->get();
 
 
@@ -573,6 +578,10 @@ class ReservaController extends Controller
             ->where('quartos.andar', $andar)->distinct()->get();
 
         return view('reservas.aprovar')->withReserva($reserva)->withAndares($andares)->withQuartos($quartos)->withCamas($camas)->withHospedes($hospedes);
+    }
+
+    public function dadosReserva($id){ //Ajax
+        return Reserva::find($id);
     }
 
 }
