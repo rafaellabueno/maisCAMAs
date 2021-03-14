@@ -72,6 +72,12 @@ Route::post('/reservas/aprova/quarto', 'ReservaController@aprovaQuarto')->name('
 Route::get('/reservas/filtrar/{id}/{andar}', 'ReservaController@filtrar')->name('reservas.filtrar');
 Route::get('/reservas/dados-reserva/{id}', 'ReservaController@dadosReserva'); //Ajax
 
+//Relatorios
+Route::get('/relatorios/usuarios', 'RelatorioController@csvUsers')->name('csvUsers');
+Route::get('/relatorios/quartos', 'RelatorioController@csvQuartos')->name('csvQuartos');
+Route::get('/relatorios/hospedes-reservas', 'RelatorioController@csvHospedesReservas')->name('csvHospedesReservas');
+Route::get('/relatorios/hospedes-cidades', 'RelatorioController@csvHospedesCidades')->name('csvHospedesCidades');
+
 Auth::routes();
 
 Route::post('/recuperar/senha/', 'Auth\ForgotPasswordController@emailSenha')->name('recuperar.senha');

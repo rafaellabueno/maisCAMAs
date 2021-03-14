@@ -91,13 +91,13 @@
         <script src="{{ asset('js/fullcalendar.min.js') }}"></script>
         <script src="{{ asset('js/jasny-bootstrap.min.js') }}"></script>
         <script src="{{ asset('js/jquery.bootstrap-wizard.js') }}"></script>
+        <script src="{{ asset('js/demo.js') }}"></script>
         <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
         <script src="{{ asset('js/jquery.tagsinput.js') }}"></script>
         <script src="{{ asset('js/jquery.validate.min.js') }}"></script>
         <script src="{{ asset('js/jquery-jvectormap.js') }}"></script>
         <script src="{{ asset('js/perfect-scrollbar.jquery.min.js') }}"></script>
         <script src="{{ asset('js/sweetalert2.js') }}"></script>
-
 
         @yield('js')
     </body>

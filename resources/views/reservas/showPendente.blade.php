@@ -233,7 +233,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-info excluir" data-dismiss="modal">Excluir</button>
+                    <button type="button" class="btn btn-info excluir" data-dismiss="modal">Recusar</button>
                 </div>
             </div>
         </div>
@@ -253,7 +253,7 @@
                 $('#loadCadastro').removeClass('d-none');
                 $('#aceita').addClass('d-none');
                 $('#id-reserva').addClass('d-none');
-                var urlConsulta = '../../recusar/'+idReserva+'/'+$('#passwordDelete').val()+'/'+$('#observacaoDelete').val();
+                var urlConsulta = '../recusar/'+idReserva+'/'+$('#passwordDelete').val()+'/'+$('#observacaoDelete').val();
                 $.get(urlConsulta, function (res){
                     if(res == 'true'){
                         window.location.href = "{{ route('reservas.lista')}}";
